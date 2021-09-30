@@ -36,5 +36,10 @@ export const api2 = (req, res) => ({
 import express from 'express';
 import autoloader from '@mrpotatoes/express-autoloader';
 
-autoloader(express(), path.join(__dirname, '/path/to/routes'), true);
+// Allow for multiple paths
+const paths = [
+  path.join(__dirname, '/path/to/routes'),
+]
+
+autoloader(express(), paths, true);
 ```
