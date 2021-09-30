@@ -1,0 +1,23 @@
+{
+  "cSpell.userWords": [], // only use words from .cspell.json
+  "cSpell.enabled": true,
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    ".nyc_output": false,
+    "**/node_modules": true,
+    "package-lock.json": false,
+    "yarn.lock": false,
+    "node_modules": true,
+    "**/.vscode": true,
+    ".vscode": true
+  },
+  "explorerExclude.backup": null
+}
