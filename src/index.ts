@@ -5,6 +5,7 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
 /* eslint-disable @typescript-eslint/no-var-requires */
+// TODO: Convert to use fp-ts
 import fs from 'fs'
 import path from 'path'
 import express, { Router } from "express";
@@ -34,6 +35,8 @@ const walk = (dir: string) => {
  * https://github.com/imcooder/express-autoload-router/blob/master/index.js
  * 
  * Register route with Express.
+ * 
+ * TODO: Use correct express types
  */
 const registerRoute = () => {
   // Does this path already exist? Throw an error. This is a dev-time thing so it doesn't bother me as much.
@@ -62,6 +65,7 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
 
   const files = (recursive ? walk(loadPath) : fs.readdirSync(loadPath));
 
+  // TODO: Make this functional.
   for (const entry of files) {
     const file = (recursive ? path.resolve(entry) : path.resolve(loadPath, entry))
     const isFile = fs.statSync(file).isFile()
@@ -95,4 +99,5 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
 // Use `path.join(__dirname, 'path/to/folder')` here
 // loadRouter(app, '/api', path.join(__dirname, '_routes'));
 
+// TODO: Actually run this with express.js
 RoutesLoader(path.join(__dirname, '_routes'), true)
