@@ -8,9 +8,8 @@
 // TODO: Convert to use fp-ts
 import fs from 'fs'
 import path from 'path'
-import express, { Router } from 'express'
+// import express, { Router } from 'express'
 import { walk } from './walker'
-import { chainTaskK } from 'fp-ts/lib/FromTask'
 
 import { METHOD } from './lib/stuff'
 
@@ -27,14 +26,23 @@ let paths = []
  * Register route with Express.
  * 
  * TODO: Use correct express types
+ * TODO: Apply middlewares
+ * TODO: Apply versions
+ * TODO: Apply prod/dev
+ * TODO: Check if it starts with a slash, toss out a warning otherwise.
  */
-const registerRoute = (route) => {
+const registerRoute = (app, route) => {
   // Does this path already exist? Throw an error. This is a dev-time check.
   if (paths.includes(pathCache(route))) {
     throw new Error(`Route "${route.path}" already exists`)
   } else {
     paths.push(pathCache(route))
   }
+
+  // TODO: Move this function to utils
+  const expressMethod = METHOD[route.method].toLocaleLowerCase()
+
+  app[expressMethod](`/${route.path}`, route.handler);
 
   // if (middlewares.length) {
   //   app[method](url, compose(middlewares, modifiedUrl), handler);
@@ -47,9 +55,9 @@ const registerRoute = (route) => {
 const route = (module, key) => module[key]()
 
 // Pulls out relevant route info
-const routeFn = (module) =>
+const routeFn = (app, module) =>
   Object.keys(module).map(k => {
-    registerRoute(route(module, k))
+    registerRoute(app, route(module, k))
 
     return {
       method: route(module, k).method,
@@ -57,11 +65,10 @@ const routeFn = (module) =>
     }
   })
 
-function RoutesLoader(loadPath: string, recursive: boolean): Router {
+export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
   // const express = require('express');
-  let router = express.Router();
-
-  if (!loadPath) loadPath = './routes';
+  // let router = express.Router();
+  // if (!loadPath) loadPath = './routes';
 
   const files = (recursive ? walk(loadPath) : fs.readdirSync(loadPath));
 
@@ -78,8 +85,8 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
         const isObject = toType(module) === 'object'
 
         if (isObject) {
-          const simplePath = file.replace('/Users/mma1083/Projects/autoloader/dist/', '')
-          const route = routeFn(module)
+          const route = routeFn(app, module)
+          // const simplePath = file.replace('/Users/mma1083/Projects/autoloader/dist/', '')
           // console.log(simplePath, route)
           // console.log('--------')
           // console.log()
@@ -94,15 +101,11 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
   }
 
   console.log(paths)
-  return router;
+  // return router;
 }
 
 // Use `path.join(__dirname, 'path/to/folder')` here
 // loadRouter(app, '/api', path.join(__dirname, '_routes'));
 
 // TODO: Actually run this with express.js
-try {
-  RoutesLoader(path.join(__dirname, '_routes'), true)
-} catch (error) {
-  console.log(error.toString())
-}
+
