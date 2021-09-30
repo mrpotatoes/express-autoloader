@@ -2,7 +2,7 @@ import { METHOD, VERSIONS, middleware1, middleware2 } from '../../lib/stuff'
 
 export const search = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/something/hey/:id/:something?query',
+  path: 'fun/fun/fun',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,

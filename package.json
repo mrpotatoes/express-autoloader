@@ -2,15 +2,16 @@
   "name": "@mrpotatoes/express-autoloader",
   "version": "1.0.0",
   "description": "A simple express autoloader ya doink",
-  "main": "build/main/index.js",
-  "typings": "build/main/index.d.ts",
-  "module": "build/module/index.js",
+  "main": "dist/main/index.js",
+  "typings": "dist/main/index.d.ts",
+  "module": "dist/module/index.js",
   "repository": "https://github.com/mrpotatoes/autoloader-for-express-yay",
   "license": "MIT",
   "keywords": [],
   "scripts": {
     "dev": "tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist\"",
-    "watch-and-run": "tsc -w & nodemon -q -w dist build/main",
+    "example:setup": "clear; echo \"Implment the npm link/install here\"; exit 1",
+    "watch-and-run": "tsc -w & nodemon -q -w dist dist/main",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "build": "run-p build:*",
@@ -22,10 +23,10 @@
     "cov:send": "run-s cov:lcov && codecov",
     "cov": "run-s build test:unit cov:html cov:lcov && open-cli coverage/index.html",
     "diff-integration-tests": "mkdir -p diff && rm -rf diff/test && cp -r test diff/test && rm -rf diff/test/test-*/.git && cd diff && git init --quiet && git add -A && git commit --quiet --no-verify --allow-empty -m 'WIP' && echo '\\n\\nCommitted most recent integration test output in the \"diff\" directory. Review the changes with \"cd diff && git diff HEAD\" or your preferred git diff viewer.'",
-    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs",
-    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
-    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "doc": "run-s doc:html && open-cli build/docs/index.html",
+    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out dist/docs",
+    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json dist/docs/typedoc.json",
+    "doc:publish": "gh-pages -m \"[ci skip] Updates\" -d dist/docs",
+    "doc": "run-s doc:html && open-cli dist/docs/index.html",
     "fix:lint": "eslint src --ext .ts --fix",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix": "run-s fix:*",
@@ -78,8 +79,8 @@
     "typescript": "^4.0.2"
   },
   "files": [
-    "build/main",
-    "build/module",
+    "dist/main",
+    "dist/module",
     "!**/*.spec.*",
     "!**/*.json",
     "CHANGELOG.md",
@@ -91,11 +92,11 @@
     "timeout": "60s",
     "typescript": {
       "rewritePaths": {
-        "src/": "build/main/"
+        "src/": "dist/main/"
       }
     },
     "files": [
-      "!build/module/**"
+      "!dist/module/**"
     ]
   },
   "config": {

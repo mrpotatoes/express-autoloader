@@ -2,7 +2,7 @@ import { METHOD, VERSIONS, middleware1, middleware2 } from '../../lib/stuff'
 
 export const thingy = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/something/hey/:id/:something?query',
+  path: 'api/hey/now/:id/:something?query',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,

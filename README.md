@@ -6,7 +6,7 @@
 https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-folders/
 
 -->
-
+## Use
 ```ts
 // In file /routes/api
 export const api = (req, res) => ({
@@ -43,3 +43,7 @@ const paths = [
 
 autoloader(express(), paths, true);
 ```
+
+## Example
+Clone this repo, install then run `example:setup`.
+Go into `example` and muck around in there.

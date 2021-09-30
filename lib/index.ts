@@ -8,28 +8,18 @@
 // TODO: Convert to use fp-ts
 import fs from 'fs'
 import path from 'path'
-import express, { Router } from "express";
+import express, { Router } from 'express'
+import { walk } from './walker'
+import { chainTaskK } from 'fp-ts/lib/FromTask'
 
-// import compose from './lib/compose';
-// import applyMethod from './applyMethod';
+import { METHOD } from './lib/stuff'
 
+// TODO: Put into a utils file.
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+const pathCache = (route) => `${METHOD[route.method]}.${route.path}`
 
-const walk = (dir: string) => {
-  // eslint-disable-next-line functional/prefer-readonly-type
-  let results: string[] = [];
-  const list = fs.readdirSync(dir)
-  list.forEach((file: string) => {
-    file = dir + '/' + file
-    const stat = fs.statSync(file)
-    if (stat && stat.isDirectory()) {
-      results = results.concat(walk(file));
-    } else {
-      results.push(file);
-    }
-  })
-  return results;
-}
+// TODO: This will need to become immutable eventually. 
+let paths = []
 
 /**
  * https://github.com/imcooder/express-autoload-router/blob/master/index.js
@@ -38,8 +28,14 @@ const walk = (dir: string) => {
  * 
  * TODO: Use correct express types
  */
-const registerRoute = () => {
-  // Does this path already exist? Throw an error. This is a dev-time thing so it doesn't bother me as much.
+const registerRoute = (route) => {
+  // Does this path already exist? Throw an error. This is a dev-time check.
+  if (paths.includes(pathCache(route))) {
+    throw new Error(`Route "${route.path}" already exists`)
+  } else {
+    paths.push(pathCache(route))
+  }
+
   // if (middlewares.length) {
   //   app[method](url, compose(middlewares, modifiedUrl), handler);
   // } else {
@@ -52,10 +48,14 @@ const route = (module, key) => module[key]()
 
 // Pulls out relevant route info
 const routeFn = (module) =>
-  Object.keys(module).map(k => ({
-    method: route(module, k).method,
-    path: route(module, k).path,
-  }))
+  Object.keys(module).map(k => {
+    registerRoute(route(module, k))
+
+    return {
+      method: route(module, k).method,
+      path: route(module, k).path,
+    }
+  })
 
 function RoutesLoader(loadPath: string, recursive: boolean): Router {
   // const express = require('express');
@@ -80,19 +80,20 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
         if (isObject) {
           const simplePath = file.replace('/Users/mma1083/Projects/autoloader/dist/', '')
           const route = routeFn(module)
-          console.log(simplePath, route)
-          console.log('--------')
-          console.log()
+          // console.log(simplePath, route)
+          // console.log('--------')
+          // console.log()
           // console.log(module.api)
           // router = (module.default || module)(router);
         }
       } catch (e) {
-        throw new Error("Error when loading route file: " + file + " [" + e.toString() + "]");
+        throw new Error(e.toString());
       }
     }
 
   }
 
+  console.log(paths)
   return router;
 }
 
@@ -100,4 +101,8 @@ function RoutesLoader(loadPath: string, recursive: boolean): Router {
 // loadRouter(app, '/api', path.join(__dirname, '_routes'));
 
 // TODO: Actually run this with express.js
-RoutesLoader(path.join(__dirname, '_routes'), true)
+try {
+  RoutesLoader(path.join(__dirname, '_routes'), true)
+} catch (error) {
+  console.log(error.toString())
+}

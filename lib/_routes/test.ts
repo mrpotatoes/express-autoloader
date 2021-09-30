@@ -13,9 +13,9 @@ export const api = (req, res) => ({
 })
 
 export const api2 = (req, res) => ({
-  method: METHOD.GET,
+  method: METHOD.POST,
   path: 'api/something/hey/:id/:something?query',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
@@ -24,7 +24,7 @@ export const api2 = (req, res) => ({
 })
 
 export default (req, res) => ({
-  method: METHOD.GET,
+  method: METHOD.CONNECT,
   path: 'api/something/hey/:id/:something?query',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
