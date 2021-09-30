@@ -9,6 +9,8 @@
 import fs from 'fs'
 import path from 'path'
 // import express, { Router } from 'express'
+
+// TODO: Fix the tsconfig-paths so this doesn't break again.
 import { walk } from './walker'
 
 import { METHOD } from './lib/stuff'
@@ -17,7 +19,8 @@ import { METHOD } from './lib/stuff'
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 const pathCache = (route) => `${METHOD[route.method]}.${route.path}`
 
-// TODO: This will need to become immutable eventually. 
+// TODO: Make this a dep to be passed around.
+// TODO: This will need to become immutable eventually.
 let paths = []
 
 /**
@@ -42,13 +45,8 @@ const registerRoute = (app, route) => {
   // TODO: Move this function to utils
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
 
+  // TODO: How add middlewares.
   app[expressMethod](`/${route.path}`, route.handler);
-
-  // if (middlewares.length) {
-  //   app[method](url, compose(middlewares, modifiedUrl), handler);
-  // } else {
-  //   app[method](url, handler);
-  // }
 }
 
 // Get the route (use memo here eventually)
@@ -65,11 +63,13 @@ const routeFn = (app, module) =>
     }
   })
 
+/**
+ * Return files included + paths.
+ * @param app 
+ * @param loadPath 
+ * @param recursive 
+ */
 export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
-  // const express = require('express');
-  // let router = express.Router();
-  // if (!loadPath) loadPath = './routes';
-
   const files = (recursive ? walk(loadPath) : fs.readdirSync(loadPath));
 
   // TODO: Make this functional.
@@ -90,22 +90,12 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
           // console.log(simplePath, route)
           // console.log('--------')
           // console.log()
-          // console.log(module.api)
-          // router = (module.default || module)(router);
         }
       } catch (e) {
         throw new Error(e.toString());
       }
     }
-
   }
 
   console.log(paths)
-  // return router;
 }
-
-// Use `path.join(__dirname, 'path/to/folder')` here
-// loadRouter(app, '/api', path.join(__dirname, '_routes'));
-
-// TODO: Actually run this with express.js
-

@@ -14,7 +14,9 @@
     }
   },
   "include": [
-    "lib",
-    "example",
+    "lib/",
+    "example/",
+    "tests/",
+    "tests/__mocks__/",
   ],
 }

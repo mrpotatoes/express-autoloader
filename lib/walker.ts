@@ -9,6 +9,7 @@ export const walk = (dir: string) => {
   // eslint-disable-next-line functional/prefer-readonly-type
   let results: string[] = [];
   const list = fs.readdirSync(dir)
+
   list.forEach((file: string) => {
     file = dir + '/' + file
     const stat = fs.statSync(file)
