@@ -1,12 +1,12 @@
 import { METHOD, VERSIONS, middleware1, middleware2 } from '../../../lib/lib/stuff'
 
-export const homeAndricGet = (req, res) => ({
+export const cart = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/:id/:something?query',
+  path: 'api/cart/:id',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(`cart/${req.params.id}`);
   },
 })

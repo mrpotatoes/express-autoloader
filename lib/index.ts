@@ -6,6 +6,7 @@
 /* eslint-disable functional/immutable-data */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: Convert to use fp-ts
+// TODO: Re-org this directory
 import fs from 'fs'
 import path from 'path'
 // import express, { Router } from 'express'
@@ -45,6 +46,7 @@ const registerRoute = (app, route) => {
   // TODO: Move this function to utils
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
 
+  // TODO: Make this async
   // TODO: How add middlewares.
   app[expressMethod](`/${route.path}`, route.handler);
 }

@@ -1,12 +1,12 @@
 import { METHOD, VERSIONS, middleware1, middleware2 } from '../../../../lib/lib/stuff'
 
-export const homeAndricGet = (req, res) => ({
+export const deeperSomething = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/something',
+  path: 'api/home/deeper/something',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(req.originalUrl);
   },
 })

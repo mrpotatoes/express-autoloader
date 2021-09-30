@@ -8,8 +8,7 @@ export const api0 = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    console.log('hey')
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(req.originalUrl);
   },
 })
 

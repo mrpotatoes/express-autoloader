@@ -15,6 +15,7 @@ export const api = (req, res) => ({
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
+  error: errorFunction, 
   handler(req, res) {
     return res.send(`product detail ${req.params.id}`);
   },
@@ -27,6 +28,7 @@ export const api2 = (req, res) => ({
   middlewares: [middleware1, middleware2],
   prodExclude: true,
   version: VERSIONS.V1,
+  error: errorFunction, 
   handler(req, res) {
     return res.send(`product detail ${req.params.id}`);
   },

@@ -2,11 +2,11 @@ import { METHOD, VERSIONS, middleware1, middleware2 } from '../../../lib/lib/stu
 
 export const thingy = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/hey/now/:id/:something?query',
+  path: 'api/wishlist/:list/',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(req.originalUrl);
   },
 })

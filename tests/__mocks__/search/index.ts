@@ -7,6 +7,6 @@ export const search = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(req.originalUrl);
   },
 })
