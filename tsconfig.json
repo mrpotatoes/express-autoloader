@@ -4,17 +4,16 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "ES5",
-    "baseUrl": "./src",
+    "baseUrl": "./lib",
     "outDir": "./dist/",
     "module": "commonjs",
     "esModuleInterop": true,
     "allowJs": true,
     "paths": {
-      "src/*": ["src/*"],
-      "@lib/*": ["src/lib/*"],
+      "@lib/*": ["lib/*"],
     }
   },
   "include": [
-    "src"
+    "lib"
   ],
 }
