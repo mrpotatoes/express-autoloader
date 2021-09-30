@@ -8,25 +8,8 @@ https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-f
 -->
 
 ```ts
-enum METHOD {
-  CONNECT, DELETE, GET, HEAD, OPTIONS, PATCH, POST, PUT, TRACE
-};
-
-enum VERSIONS = {
-  V1 = 'v1',
-};
-
-const middleware1 = (req, res, next) => {
-  console.log('Middleware 1');
-  next();
-};
-
-const middleware2 = (req, res, next) => {
-  console.log('Middleware 2');
-  next();
-};
-
-export const api = {
+// In file /routes/api
+export const api = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something?query',
   middlewares: [middleware1, middleware2],
@@ -35,16 +18,23 @@ export const api = {
   handler(req, res) {
     return res.send(`product detail ${req.params.id}`);
   },
-};
+});
 
-export const api2 = {
+// In file /routes/api2
+export const api2 = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something?query',
   middlewares: [middleware1, middleware2],
-  prodExclude: false,
+  prodExclude: true,
   version: VERSIONS.V1,
   handler(req, res) {
     return res.send(`product detail ${req.params.id}`);
   },
-};
+});
+
+// Some other file
+import express from 'express';
+import autoloader from '@mrpotatoes/express-autoloader';
+
+autoloader(express(), path.join(__dirname, '/path/to/routes'), true);
 ```
