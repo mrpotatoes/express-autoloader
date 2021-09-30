@@ -8,6 +8,28 @@ https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-f
 -->
 ## Use
 ```ts
+/**
+ * This will still not work, currently, because if there is an error
+ * then there needs to be a way to handle those errors and cleanup. 
+ * That will be in version 2 of this thing when I convert this to fp-ts.
+ */
+const someHandler = async (req, res) => {
+  const client = new DB()
+  const data = req.body
+  await client.connect()
+
+  const all = await client.query(statement)
+  const data = all.rows
+
+  for (const one of all) {
+    await client.query(insertStatement(one))
+  }
+
+  await client.end()
+
+  res.send({ all })
+}
+
 // In file /routes/api
 export const api = (req, res) => ({
   method: METHOD.GET,
@@ -16,7 +38,7 @@ export const api = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   error: errorFunction, 
-  handler(req, res) {
+  handler: (req, res) {
     return res.send(`product detail ${req.params.id}`);
   },
 });
@@ -29,9 +51,9 @@ export const api2 = (req, res) => ({
   prodExclude: true,
   version: VERSIONS.V1,
   error: errorFunction, 
-  handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
-  },
+
+  // A more complex handler, see above.
+  handler: someHandler,
 });
 
 // Some other file

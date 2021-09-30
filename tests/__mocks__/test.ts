@@ -12,7 +12,6 @@ export const api0 = (req, res) => ({
   },
 })
 
-
 export const api = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something',
