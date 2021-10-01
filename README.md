@@ -71,3 +71,6 @@ autoloader(express(), paths, true);
 ## Example
 Clone this repo, install then run `example:setup`.
 Go into `example` and muck around in there.
+
+## Currently broken things
+- I cannot use TS Paths in the config. What's up with that?

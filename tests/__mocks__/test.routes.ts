@@ -1,14 +1,16 @@
 // TODO: Move `src/_routes/` to `tests/__mocks__`
-import { METHOD, VERSIONS, middleware1, middleware2 } from '../../lib/lib/stuff'
+import { METHOD, VERSIONS } from '../../lib/lib/stuff'
+import { Route } from '../../lib/types/routes'
+import { middleware1, middleware2 } from './middlewares'
 
-export const api0 = (req, res) => ({
+export const api0 = (req, res): Route => ({
   method: METHOD.GET,
   path: 'api/something/:id/',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
-  handler(req, res) {
-    return res.send(req.originalUrl);
+  handler: async (req, res) => {
+    res.send(req.originalUrl)
   },
 })
 

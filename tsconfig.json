@@ -4,7 +4,7 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "ES5",
-    "baseUrl": "./lib",
+    "baseUrl": "./",
     "outDir": "./dist/",
     "module": "commonjs",
     "esModuleInterop": true,
@@ -16,7 +16,6 @@
   "include": [
     "lib/",
     "example/",
-    "tests/",
-    "tests/__mocks__/",
+    "tests/"
   ],
 }

@@ -1,8 +1,9 @@
-import { METHOD, VERSIONS, middleware1, middleware2 } from '../../../../lib/lib/stuff'
+import { METHOD, VERSIONS } from '../../../lib/lib/stuff'
+import { middleware1, middleware2 } from '../middlewares'
 
-export const deeperSomething = (req, res) => ({
+export const ignoreMe = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/home/deeper/something',
+  path: 'ignore/me',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,

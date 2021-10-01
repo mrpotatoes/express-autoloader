@@ -10,7 +10,6 @@
   "keywords": [],
   "scripts": {
     "dev": "tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist\"",
-    "example:setup": "clear; echo \"Implment the npm link/install here\"; exit 1",
     "example": "clear; tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist/example\"",
     "watch-and-run": "tsc -w & nodemon -q -w dist dist/main",
     "build:main": "tsc -p tsconfig.json",

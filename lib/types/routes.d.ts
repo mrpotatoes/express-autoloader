@@ -1,3 +1,4 @@
+/* eslint-disable functional/prefer-readonly-type */
 /**
  * If you import a dependency which does not include its own type definitions,
  * TypeScript will try to find a definition for it by following the `typeRoots`
@@ -17,8 +18,40 @@
  * something();
  * ```
  */
+
+import { Request, Response, NextFunction } from 'express'
+import { METHOD, VERSIONS } from '../lib/stuff'
+
 declare module 'module-name' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const whatever: any;
   export = whatever;
+}
+
+type Handler = (req: Request, res: Response) => Promise<void>
+type Middleware = (req: Request, res: Response, next: NextFunction) => Promise<void>
+
+export type Route = {
+  // HTTP Method
+  method: METHOD,
+
+  // The path
+  path: string,
+
+  // Exclude on prod or not
+  prodExclude: boolean,
+
+  // The version of your thingy. Is prepended to your path.
+  version: VERSIONS,
+
+  // The worker. This is where you put your [business] logic
+  handler: Handler,
+
+  middlewares?: Middleware[],
+
+  // This will be called in a catch, do your cleanup work here. Logging etc.
+  // error?: errorFunction,
+
+  // Anything that you may need. This is a generic.
+  // dependencies?: errorFunction,
 }

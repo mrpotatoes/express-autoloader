@@ -1,4 +1,5 @@
-import { METHOD, VERSIONS, middleware1, middleware2 } from '../../../lib/lib/stuff'
+import { METHOD, VERSIONS } from '../../../lib/lib/stuff'
+import { middleware1, middleware2 } from '../middlewares'
 
 export const cart = (req, res) => ({
   method: METHOD.GET,
