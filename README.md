@@ -77,3 +77,4 @@ Go into `example` and muck around in there.
 
 ## Currently broken things
 - I cannot use TS Paths in the config. What's up with that?
+- Add in the vscode debugging stuff to make life easier.
