@@ -52,7 +52,7 @@ const registerRoute = (app, route: Route) => {
 
   // TODO: Make this async
   // TODO: How add middlewares.
-  app[expressMethod](`/${route.path}`, route.handler);
+  app[expressMethod](`/${route.path}`, route.handler)
 }
 
 // Get the route (use memo here eventually)
@@ -76,7 +76,7 @@ const routeFn = (app, module) =>
  * @param recursive 
  */
 export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
-  const files = (recursive ? walk(loadPath) : fs.readdirSync(loadPath));
+  const files = (recursive ? walk(loadPath) : fs.readdirSync(loadPath))
 
   // TODO: Make this functional.
   for (const entry of files) {
@@ -87,7 +87,7 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
 
     if (isFile && isSource && isLegit) {
       try {
-        const module = require(file);
+        const module = require(file)
         const isObject = toType(module) === 'object'
 
         if (isObject) {
@@ -98,7 +98,7 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
           // console.log()
         }
       } catch (e) {
-        throw new Error(e.toString());
+        throw new Error(e.toString())
       }
     }
   }

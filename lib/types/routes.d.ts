@@ -14,8 +14,8 @@
  * This is an example type definition which allows import from `module-name`,
  * e.g.:
  * ```ts
- * import something from 'module-name';
- * something();
+ * import something from 'module-name'
+ * something()
  * ```
  */
 
@@ -24,8 +24,8 @@ import { METHOD, VERSIONS } from './constants'
 
 declare module 'module-name' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const whatever: any;
-  export = whatever;
+  const whatever: any
+  export = whatever
 }
 
 type Handler = (req: Request, res: Response) => Promise<void>

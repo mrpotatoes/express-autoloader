@@ -23,7 +23,7 @@ export const api = (req, res) => ({
   version: VERSIONS.V1,
   handler(req, res) {
     console.log('hey')
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(`product detail ${req.params.id}`)
   },
 })
 
@@ -34,7 +34,7 @@ export const api2 = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(`product detail ${req.params.id}`)
   },
 })
 
@@ -45,6 +45,6 @@ export default (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(`product detail ${req.params.id}`)
   },
 })

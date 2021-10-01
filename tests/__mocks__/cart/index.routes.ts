@@ -8,6 +8,6 @@ export const cart = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(`cart/${req.params.id}`);
+    return res.send(`cart/${req.params.id}`)
   },
 })

@@ -8,6 +8,6 @@ export const ignoreMe = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
   handler(req, res) {
-    return res.send(req.originalUrl);
+    return res.send(req.originalUrl)
   },
 })

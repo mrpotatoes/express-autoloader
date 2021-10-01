@@ -6,9 +6,9 @@ import fs from 'fs'
 
 export const walk = (dir: string) => {
   // eslint-disable-next-line functional/prefer-readonly-type
-  let results: string[] = [];
+  let results: string[] = []
   const list = fs.readdirSync(dir)
-  const regex = new RegExp('routes?.(ts|js)');
+  const regex = new RegExp('routes?.(ts|js)')
 
   list.forEach((file: string) => {
     file = dir + '/' + file
@@ -17,11 +17,11 @@ export const walk = (dir: string) => {
     const stat = fs.statSync(file)
 
     if (stat && stat.isDirectory() && !isRoute) {
-      results = results.concat(walk(file));
+      results = results.concat(walk(file))
     } else if (isRoute) {
-      results.push(file);
+      results.push(file)
     }
   })
 
-  return results;
+  return results
 }

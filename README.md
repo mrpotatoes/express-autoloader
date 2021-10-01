@@ -9,6 +9,13 @@ https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-f
 
 ![](./example/screenie.png)
 
+## Why
+1. I don't feel that adding express routes manually is a good use of my time.
+1. I want to spend time figuring out & debugging why a path isn't being added.
+1. 
+1. 
+1. 
+
 ## Use
 ```ts
 /**
@@ -42,9 +49,9 @@ export const api = (req, res) => ({
   version: VERSIONS.V1,
   error: errorFunction, 
   handler: (req, res) {
-    return res.send(`product detail ${req.params.id}`);
+    return res.send(`product detail ${req.params.id}`)
   },
-});
+})
 
 // In file /routes/api2
 export const api2 = (req, res) => ({
@@ -57,18 +64,18 @@ export const api2 = (req, res) => ({
 
   // A more complex handler, see above.
   handler: someHandler,
-});
+})
 
 // Some other file
-import express from 'express';
-import autoloader from '@mrpotatoes/express-autoloader';
+import express from 'express'
+import autoloader from '@mrpotatoes/express-autoloader'
 
 // Allow for multiple paths
 const paths = [
   path.join(__dirname, '/path/to/routes'),
 ]
 
-autoloader(express(), paths, true);
+autoloader(express(), paths, true)
 ```
 
 ## Example
