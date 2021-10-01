@@ -1,4 +1,4 @@
-import { METHOD, VERSIONS } from '../../../../lib/lib/stuff'
+import { METHOD, VERSIONS } from '../../../../lib/types/constants'
 import { middleware1, middleware2 } from '../../middlewares'
 
 export const deeperSomething = (req, res) => ({
