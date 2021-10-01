@@ -6,6 +6,9 @@
 https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-folders/
 
 -->
+
+![](./example/screenie.png)
+
 ## Use
 ```ts
 /**

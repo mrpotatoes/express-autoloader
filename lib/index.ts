@@ -7,6 +7,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: Convert to use fp-ts
 // TODO: Re-org this directory
+import 'console.table'
+
 import fs from 'fs'
 import path from 'path'
 
@@ -17,7 +19,10 @@ import { Route } from './types/routes'
 
 // TODO: Put into a utils file.
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-const pathCache = (route) => `${METHOD[route.method]}.${route.path}`
+const pathCache = (route) => ({
+  path: `${METHOD[route.method]}.${route.path}`,
+  curl: `curl -X GET http://localhost:2121/${route.path}`,
+})
 
 // TODO: Make this a dep to be passed around.
 // TODO: This will need to become immutable eventually.
@@ -98,5 +103,6 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
     }
   }
 
-  console.log(paths)
+  // TODO: This should be a dev thing only.
+  console.table(paths)
 }
