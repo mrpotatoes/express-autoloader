@@ -12,7 +12,7 @@ import path from 'path'
 
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import { walk } from './walker'
-import { METHOD } from './lib/stuff'
+import { METHOD } from './types/constants'
 import { Route } from './types/routes'
 
 // TODO: Put into a utils file.

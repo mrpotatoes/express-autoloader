@@ -20,7 +20,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express'
-import { METHOD, VERSIONS } from '../lib/stuff'
+import { METHOD, VERSIONS } from './constants'
 
 declare module 'module-name' {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
