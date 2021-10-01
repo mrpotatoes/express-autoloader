@@ -12,9 +12,13 @@ https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-f
 ## Why
 1. I don't feel that adding express routes manually is a good use of my time.
 1. I want to spend time figuring out & debugging why a path isn't being added.
-1. 
-1. 
-1. 
+1. Having a common `interface` makes it easy to create
+1. The name of the path function isn't important, it's the path
+1. The `Route` should be self sufficient and should declare everything it needs itself.
+1. I like clean code and this will make things far cleaner.
+1. I don't like `try`/`catch` code in my handlers.
+    * That should be handled by some wrapping function and I declare my happy path and unhappy path functions
+1. Dependencies shouldn't be hard to handle so I'm trying to make that easier.
 
 ## Use
 ```ts
