@@ -9,12 +9,11 @@
 // TODO: Re-org this directory
 import fs from 'fs'
 import path from 'path'
-// import express, { Router } from 'express'
 
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import { walk } from './walker'
-
 import { METHOD } from './lib/stuff'
+import { Route } from './types/routes'
 
 // TODO: Put into a utils file.
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -35,7 +34,7 @@ let paths = []
  * TODO: Apply prod/dev
  * TODO: Check if it starts with a slash, toss out a warning otherwise.
  */
-const registerRoute = (app, route) => {
+const registerRoute = (app, route: Route) => {
   // Does this path already exist? Throw an error. This is a dev-time check.
   if (paths.includes(pathCache(route))) {
     throw new Error(`Route "${route.path}" already exists`)
