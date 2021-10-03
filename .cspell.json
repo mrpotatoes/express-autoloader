@@ -10,6 +10,7 @@
     "circleci",
     "codecov",
     "commitlint",
+    "deets",
     "dependabot",
     "editorconfig",
     "esnext",

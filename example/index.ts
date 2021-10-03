@@ -26,6 +26,14 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
   res.send('manually adding still works, yay')
 })
 
+const errorHandler = async (req, res) => {
+  // console.log('ERROR HANDLER CALLED')
+
+  return {
+    more: 'so much more',
+  }
+}
+
 const failure = async (req, res, next) => {
   throw new Error('this handler should also fail')
 }
@@ -35,7 +43,7 @@ const success = async (req, res, next) => ({
 })
 
 app.get('/success', asyncThing(success))
-app.get('/failure', asyncThing(failure))
+app.get('/failure', asyncThing(failure, errorHandler))
 
 
 // TODO: Wrap this in an Either() so the code is cleaner and the error handling is simpler.

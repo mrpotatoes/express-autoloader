@@ -11,10 +11,15 @@ export const wrapperError = (next, res, deets) => {
 const failLogger = (url, error) => `[${chalk.black.bgRed('ERROR')}]: ${url} → ${error}`
 const passLogger = (url, ret) => `[${chalk.black.bgGreen('PASS')}]: ${url} ${JSON.stringify(ret, null, '  ')}`
 
+const defaultErrorHandler = async (req, res): Promise<any> => ({
+  hander: 'defaultErrorHandler()',
+  generic: 'yes',
+})
+
 // The safe handler that wraps everything
-export const asyncThing = (fn) => async (req, res, next) => {
+export const asyncThing = (right, left = defaultErrorHandler) => async (req, res, next) => {
   try {
-    const ret = await fn(req, res, next)
+    const ret = await right(req, res, next)
     console.log(passLogger(req.originalUrl, ret))
 
     res.send({
@@ -24,8 +29,8 @@ export const asyncThing = (fn) => async (req, res, next) => {
   } catch (error) {
     console.log(failLogger(req.originalUrl, error))
     res.send({
-      thereWasAnError: 'yeah, bud. Sorry :\'(',
       error: error.toString(),
+      left: (await left(req, res)),
     })
     res.end()
   }

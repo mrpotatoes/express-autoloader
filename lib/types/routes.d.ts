@@ -52,12 +52,11 @@ export type Route = {
 
   // The worker. This is where you put your [business] logic
   handler: Handler,
+
+  // This will be called in a catch, do your cleanup work here. Logging etc.
   error?: Handler,
 
   middlewares?: Middleware[],
-
-  // This will be called in a catch, do your cleanup work here. Logging etc.
-  // error?: errorFunction,
 
   // Anything that you may need. This is a generic.
   dependencies?: any

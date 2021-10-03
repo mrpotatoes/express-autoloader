@@ -24,8 +24,6 @@ const pathCache = (route) => ({
 let paths = []
 
 /**
- * https://github.com/imcooder/express-autoload-router/blob/master/index.js
- * 
  * Register route with Express.
  * 
  * TODO: Use correct express types
@@ -47,9 +45,8 @@ const registerRoute = (app, route) => {
   // TODO: Move this function to utils
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
 
-  // TODO: Make this async
   // TODO: How add middlewares.
-  app[expressMethod](`/${route.path}`, asyncThing(route.handler))
+  app[expressMethod](`/${route.path}`, asyncThing(route.handler, route.error))
 }
 
 // Get the route (use memo here eventually)
