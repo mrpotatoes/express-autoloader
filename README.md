@@ -5,6 +5,12 @@
 
 https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-folders/
 
+https://github.com/tranvansang/middleware-async
+
+
+-- APPLY FP-TS TO EXPRESS
+https://hvalls.dev/posts/intro-functional-fpts
+
 -->
 
 ![](./example/screenie.png)
@@ -48,7 +54,7 @@ const someHandler = async (req, res) => {
 export const api = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something?query',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
   error: errorFunction, 
@@ -61,7 +67,7 @@ export const api = (req, res) => ({
 export const api2 = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something?query',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: true,
   version: VERSIONS.V1,
   error: errorFunction, 

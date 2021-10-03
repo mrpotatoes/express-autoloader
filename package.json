@@ -48,6 +48,8 @@
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
     "@types/express": "^4.17.13",
+    "body-parser": "^1.19.0",
+    "chalk": "^4.1.2",
     "console.table": "^0.10.0",
     "express": "^4.17.1",
     "fp-ts": "^2.11.4",

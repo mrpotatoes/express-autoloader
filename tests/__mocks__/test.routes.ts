@@ -1,16 +1,40 @@
 // TODO: Move `src/_routes/` to `tests/__mocks__`
 import { METHOD, VERSIONS } from '../../lib/types/constants'
-// types/constants
 import { Route } from '../../lib/types/routes'
 import { middleware1, middleware2 } from './middlewares'
 
-export const api0 = (req, res): Route => ({
+export const errorsout = (req, res) => ({
+  // export const api0 = (req, res): Route => ({
   method: METHOD.GET,
-  path: 'api/something/:id/',
-  // middlewares: [middleware1, middleware2],
+  path: 'test',
+  middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
+
+  dependencies: {
+    andric: '',
+  },
+
   handler: async (req, res) => {
+    throw new Error('andric has failed ... DUN DUN DUUUUUUN!!!!!!')
+    // return { thing: 'legit' }
+  },
+})
+
+export const api0 = (req, res) => ({
+  // export const api0 = (req, res): Route => ({
+  method: METHOD.GET,
+  path: 'api/something/:id/',
+  middlewares: [middleware1, middleware2],
+  prodExclude: false,
+  version: VERSIONS.V1,
+
+  dependencies: {
+    andric: '',
+  },
+
+  handler: async (req, res) => {
+    throw new Error('andric failed')
     res.send(req.originalUrl)
   },
 })
@@ -18,10 +42,10 @@ export const api0 = (req, res): Route => ({
 export const api = (req, res) => ({
   method: METHOD.GET,
   path: 'api/something/hey/:id/:something',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
-  handler(req, res) {
+  handler: async (req, res) => {
     console.log('hey')
     return res.send(`product detail ${req.params.id}`)
   },
@@ -30,10 +54,10 @@ export const api = (req, res) => ({
 export const api2 = (req, res) => ({
   method: METHOD.POST,
   path: 'api/something/hey/:id/:something?query',
-  // middlewares: [middleware1, middleware2],
+  // // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
-  handler(req, res) {
+  handler: async (req, res) => {
     return res.send(`product detail ${req.params.id}`)
   },
 })
@@ -41,10 +65,10 @@ export const api2 = (req, res) => ({
 export default (req, res) => ({
   method: METHOD.CONNECT,
   path: 'api/something/hey/:id/:something?query',
-  middlewares: [middleware1, middleware2],
+  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
-  handler(req, res) {
+  handler: async (req, res) => {
     return res.send(`product detail ${req.params.id}`)
   },
 })

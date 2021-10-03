@@ -1,4 +1,5 @@
 /* eslint-disable functional/prefer-readonly-type */
+/* eslint-disable @typescript-eslint/ban-types */
 /**
  * If you import a dependency which does not include its own type definitions,
  * TypeScript will try to find a definition for it by following the `typeRoots`
@@ -31,6 +32,11 @@ declare module 'module-name' {
 type Handler = (req: Request, res: Response) => Promise<void>
 type Middleware = (req: Request, res: Response, next: NextFunction) => Promise<void>
 
+// type Dependencies<T> = {
+//   [key: string]: T
+//   // <T>
+// }
+
 export type Route = {
   // HTTP Method
   method: METHOD,
@@ -46,6 +52,7 @@ export type Route = {
 
   // The worker. This is where you put your [business] logic
   handler: Handler,
+  error?: Handler,
 
   middlewares?: Middleware[],
 
@@ -53,5 +60,12 @@ export type Route = {
   // error?: errorFunction,
 
   // Anything that you may need. This is a generic.
-  // dependencies?: errorFunction,
+  dependencies?: any
 }
+
+// export type RouteWithDeps<T> = {
+//   Route,
+// 
+//   // Anything that you may need. This is a generic.
+//   dependencies?: Dependencies<T>
+// }

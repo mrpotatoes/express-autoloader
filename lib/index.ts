@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
-/* eslint-disable functional/no-throw-statement */
-/* eslint-disable functional/no-loop-statement */
-/* eslint-disable functional/no-let */
-/* eslint-disable functional/immutable-data */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: Convert to use fp-ts
 // TODO: Re-org this directory
@@ -14,8 +9,8 @@ import path from 'path'
 
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import { walk } from './walker'
+import { asyncThing } from './safeHandler'
 import { METHOD } from './types/constants'
-import { Route } from './types/routes'
 
 // TODO: Put into a utils file.
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
@@ -39,9 +34,11 @@ let paths = []
  * TODO: Apply prod/dev
  * TODO: Check if it starts with a slash, toss out a warning otherwise.
  */
-const registerRoute = (app, route: Route) => {
+const registerRoute = (app, route) => {
+  const pathExists = paths.some(e => e.path === pathCache(route).path)
+
   // Does this path already exist? Throw an error. This is a dev-time check.
-  if (paths.includes(pathCache(route))) {
+  if (pathExists) {
     throw new Error(`Route "${route.path}" already exists`)
   } else {
     paths.push(pathCache(route))
@@ -52,7 +49,7 @@ const registerRoute = (app, route: Route) => {
 
   // TODO: Make this async
   // TODO: How add middlewares.
-  app[expressMethod](`/${route.path}`, route.handler)
+  app[expressMethod](`/${route.path}`, asyncThing(route.handler))
 }
 
 // Get the route (use memo here eventually)
@@ -91,11 +88,7 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
         const isObject = toType(module) === 'object'
 
         if (isObject) {
-          const route = routeFn(app, module)
-          // const simplePath = file.replace('/Users/mma1083/Projects/autoloader/dist/', '')
-          // console.log(simplePath, route)
-          // console.log('--------')
-          // console.log()
+          routeFn(app, module)
         }
       } catch (e) {
         throw new Error(e.toString())
@@ -104,5 +97,6 @@ export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
   }
 
   // TODO: This should be a dev thing only.
+  console.log()
   console.table(paths)
 }
