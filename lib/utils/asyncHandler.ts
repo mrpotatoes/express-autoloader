@@ -1,12 +1,12 @@
 import chalk from 'chalk'
 
-export const wrapperError = (next, res, deets) => {
-  res.setHeader('Content-Type', 'application/json')
-  res.status(500)
-  res.send(JSON.stringify(deets))
-
-  return next
-}
+// export const wrapperError = (next, res, deets) => {
+//   res.setHeader('Content-Type', 'application/json')
+//   res.status(500)
+//   res.send(JSON.stringify(deets))
+// 
+//   return next
+// }
 
 const failLogger = (url, error) => `[${chalk.black.bgRed('ERROR')}]: ${url} → ${error}`
 const passLogger = (url, ret) => `[${chalk.black.bgGreen('PASS')}]: ${url} ${JSON.stringify(ret, null, '  ')}`

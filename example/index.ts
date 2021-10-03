@@ -4,8 +4,7 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { RoutesLoader } from '../lib'
-import { asyncThing } from '../lib/safeHandler'
-
+import { asyncThing } from '../lib/utils/asyncHandler'
 
 const PORT = 2121
 const HOST = '0.0.0.0'

@@ -7,7 +7,7 @@ import path from 'path'
 
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import { allFiles } from './utils/files'
-import { asyncThing } from './safeHandler'
+import { asyncThing } from './utils/asyncHandler'
 import { METHOD } from './types/constants'
 
 // TODO: Make this a dep to be passed around.

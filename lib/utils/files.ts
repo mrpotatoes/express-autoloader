@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-export const allFiles = (directory, rec) => {
+export const allFiles = (directory: string, rec: boolean): string[] => {
   const filesInDirectory = fs.readdirSync(directory)
   let files: string[] = []
 
