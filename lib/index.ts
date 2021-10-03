@@ -65,15 +65,14 @@ const registerRoute = (app, route) => {
 const route = (module, key) => module[key]()
 
 // Pulls out relevant route info
-const routeFn = (app, module) =>
-  Object.keys(module).map(k => {
-    registerRoute(app, route(module, k))
+const routeFn = (app, module) => Object.keys(module).map(k => {
+  registerRoute(app, route(module, k))
 
-    return {
-      method: route(module, k).method,
-      path: route(module, k).path,
-    }
-  })
+  return {
+    method: route(module, k).method,
+    path: route(module, k).path,
+  }
+})
 
 /**
  * Return files included + paths.

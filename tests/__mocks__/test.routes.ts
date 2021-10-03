@@ -19,6 +19,10 @@ export const errorsout = (req, res) => ({
     throw new Error('andric has failed ... DUN DUN DUUUUUUN!!!!!!')
     // return { thing: 'legit' }
   },
+
+  error: async (req, res) => {
+    return { thing: 'this failed and I am so sorry' }
+  },
 })
 
 export const api0 = (req, res) => ({
