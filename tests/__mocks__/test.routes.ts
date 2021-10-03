@@ -16,6 +16,7 @@ export const errorsout = (req, res) => ({
   },
 
   handler: async (req, res) => {
+    // console.log('dependencies', this.dependencies)
     throw new Error('andric has failed ... DUN DUN DUUUUUUN!!!!!!')
     // return { thing: 'legit' }
   },
