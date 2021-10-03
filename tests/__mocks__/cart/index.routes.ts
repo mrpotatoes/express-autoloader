@@ -3,7 +3,7 @@ import { middleware1, middleware2 } from '../middlewares'
 
 export const cart = (req, res) => ({
   method: METHOD.GET,
-  path: 'api/cart/:id',
+  path: '///api/cart/:id///',
   // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,

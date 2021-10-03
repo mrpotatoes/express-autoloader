@@ -28,6 +28,9 @@ export const asyncThing = (right, left = defaultErrorHandler) => async (req, res
     })
   } catch (error) {
     console.log(failLogger(req.originalUrl, error))
+
+    res.setHeader('Content-Type', 'application/json')
+    res.status(500)
     res.send({
       error: error.toString(),
       left: (await left(req, res)),

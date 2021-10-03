@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: Convert to use fp-ts
 // TODO: Re-org this directory
@@ -12,16 +11,28 @@ import { walk } from './walker'
 import { asyncThing } from './safeHandler'
 import { METHOD } from './types/constants'
 
+// TODO: Make this a dep to be passed around.
+// TODO: This will need to become immutable eventually.
+const paths = []
+
+export const trim = (string, charToRemove) => {
+  while (string.charAt(0) == charToRemove) {
+    string = string.substring(1)
+  }
+
+  while (string.charAt(string.length - 1) == charToRemove) {
+    string = string.substring(0, string.length - 1)
+  }
+
+  return string
+}
+
 // TODO: Put into a utils file.
 const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 const pathCache = (route) => ({
-  path: `${METHOD[route.method]}.${route.path}`,
+  path: `${METHOD[route.method]}.${trim(route.path, '/')}`,
   curl: `curl -X GET http://localhost:2121/${route.path}`,
 })
-
-// TODO: Make this a dep to be passed around.
-// TODO: This will need to become immutable eventually.
-let paths = []
 
 /**
  * Register route with Express.
@@ -46,7 +57,8 @@ const registerRoute = (app, route) => {
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
 
   // TODO: How add middlewares.
-  app[expressMethod](`/${route.path}`, asyncThing(route.handler, route.error))
+  // app[expressMethod](`${route.path}`, asyncThing(route.handler, route.error))
+  app[expressMethod](`/${trim(route.path, '/')}`, asyncThing(route.handler, route.error))
 }
 
 // Get the route (use memo here eventually)
