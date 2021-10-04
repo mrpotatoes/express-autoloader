@@ -5,7 +5,6 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { RoutesLoader } from '../lib'
 import { pathCache } from '../lib/utils/formatters'
-// import { asyncHandler } from '../lib/utils/asyncHandler'
 
 const PORT = 2121
 const HOST = '0.0.0.0'
@@ -14,18 +13,6 @@ const app = express()
 const jsonErrorHandler = async (err, req, res, next) => {
   res.status(500).send({ error: err });
 }
-
-const errorHandler = async (req, res) => ({
-  more: 'this is a custom error handler',
-})
-
-const failure = async (req, res, next) => {
-  throw new Error('this handler should also fail')
-}
-
-const success = async (req, res, next) => ({
-  hey: 'good'
-})
 
 app.use(bodyParser.json())
 app.use(jsonErrorHandler)
@@ -38,10 +25,6 @@ app.get('/', async (req, res) => {
 app.get('/i-cant-still-do-this-of-course', async (req, res) => {
   res.send('manually adding still works, yay')
 })
-
-// TODO: Now requires the dependencies to be set correctly.
-// app.get('/success', asyncThing(success))
-// app.get('/failure', asyncThing(failure, errorHandler))
 
 // TODO: Wrap this in an Either() so the code is cleaner and the error handling is simpler.
 try {
