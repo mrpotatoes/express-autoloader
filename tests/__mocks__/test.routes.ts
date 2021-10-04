@@ -8,10 +8,6 @@ type TestDependencies = {
   name: string,
 }
 
-type TestDependencies2 = {
-  // 
-}
-
 export const testRandomError = (req, res): Route<TestDependencies> => ({
   method: METHOD.GET,
   path: 'test/:id',
@@ -23,7 +19,7 @@ export const testRandomError = (req, res): Route<TestDependencies> => ({
     name: "Johnny Cage",
   },
 
-  handler: (deps: TestDependencies2) => async (req: Request, res: Response): Promise<JSONResponse> => {
+  handler: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => {
     if (parseInt(req.params.id) == 1) {
       throw new Error('/test/? failed')
     }
