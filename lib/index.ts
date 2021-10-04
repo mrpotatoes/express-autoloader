@@ -7,7 +7,7 @@ import path from 'path'
 
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import { allFiles } from './utils/files'
-import { asyncThing } from './utils/asyncHandler'
+import { asyncHandler } from './utils/asyncHandler'
 import { METHOD } from './types/constants'
 
 // TODO: Make this a dep to be passed around.
@@ -56,7 +56,8 @@ const registerRoute = (app, route) => {
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
 
   // TODO: How add middlewares.
-  app[expressMethod](`/${trim(route.path, '/')}`, asyncThing(route.handler, route.error))
+  const handler = asyncHandler(route.dependencies, route.handler, route.error)
+  app[expressMethod](`/${trim(route.path, '/')}`, handler)
 }
 
 // Get the route (use memo here eventually)

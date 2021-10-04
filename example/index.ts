@@ -4,7 +4,7 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { RoutesLoader } from '../lib'
-import { asyncThing } from '../lib/utils/asyncHandler'
+// import { asyncHandler } from '../lib/utils/asyncHandler'
 
 const PORT = 2121
 const HOST = '0.0.0.0'
@@ -38,8 +38,9 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
   res.send('manually adding still works, yay')
 })
 
-app.get('/success', asyncThing(success))
-app.get('/failure', asyncThing(failure, errorHandler))
+// TODO: Now requires the dependencies to be set correctly.
+// app.get('/success', asyncThing(success))
+// app.get('/failure', asyncThing(failure, errorHandler))
 
 
 // TODO: Wrap this in an Either() so the code is cleaner and the error handling is simpler.

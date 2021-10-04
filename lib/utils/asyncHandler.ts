@@ -17,9 +17,9 @@ const defaultErrorHandler = async (req, res): Promise<any> => ({
 })
 
 // The safe handler that wraps everything
-export const asyncThing = (right, left = defaultErrorHandler) => async (req, res, next) => {
+export const asyncHandler = (deps, right, left = defaultErrorHandler) => async (req, res, next) => {
   try {
-    const ret = await right(req, res, next)
+    const ret = await right(deps)(req, res, next)
     console.log(passLogger(req.originalUrl, ret))
 
     res.send({

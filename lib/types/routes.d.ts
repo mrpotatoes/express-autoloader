@@ -50,14 +50,17 @@ export type Route = {
   // The version of your thingy. Is prepended to your path.
   version: VERSIONS,
 
+  // TODO: Rename this to something else.
   // The worker. This is where you put your [business] logic
   handler: Handler,
 
+  // TODO: Perhaps rename this as well.
   // This will be called in a catch, do your cleanup work here. Logging etc.
   error?: Handler,
 
   middlewares?: Middleware[],
 
+  // TODO: Is there a way to force this to be a generic and then force the consumer to define it?
   // Anything that you may need. This is a generic.
   dependencies?: any
 }
