@@ -8,6 +8,7 @@ type TestDependencies = {
   name: string,
 }
 
+// TODO: Clean up the API as we don't need the req, res here at the function definition level.
 export const testRandomError = (req, res): Route<TestDependencies> => ({
   method: METHOD.GET,
   path: 'test/:id',

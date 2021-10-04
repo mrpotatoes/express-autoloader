@@ -26,6 +26,4 @@
 | [lib/utils/routes.ts](lib/utils/routes.ts#L1) | 1 | Move all the route specific code into here.
 | [tests/__mocks__/middlewares.ts](tests/__mocks__/middlewares.ts#L1) | 1 | Delete me when ready
 | [tests/__mocks__/middlewares.ts](tests/__mocks__/middlewares.ts#L7) | 7 | Delete me when ready
-| [tests/__mocks__/test.routes.ts](tests/__mocks__/test.routes.ts#L1) | 1 | Move `src/_routes/` to `tests/__mocks__`
-| [tests/__mocks__/test.routes.ts](tests/__mocks__/test.routes.ts#L18) | 18 | Handle dependencies correctly.
-| [tests/__mocks__/test.routes.ts](tests/__mocks__/test.routes.ts#L19) | 19 | Gotta make sure that this is modifiable when handing it over to the handler
+| [tests/__mocks__/test.routes.ts](tests/__mocks__/test.routes.ts#L11) | 11 | Clean up the API as we don't need the req, res here at the function definition level.

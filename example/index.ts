@@ -4,6 +4,7 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { RoutesLoader } from '../lib'
+import { pathCache } from '../lib/utils/formatters'
 // import { asyncHandler } from '../lib/utils/asyncHandler'
 
 const PORT = 2121
@@ -42,13 +43,13 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
 // app.get('/success', asyncThing(success))
 // app.get('/failure', asyncThing(failure, errorHandler))
 
-
 // TODO: Wrap this in an Either() so the code is cleaner and the error handling is simpler.
 try {
   const paths = RoutesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), false)
+  const formatted = paths.map(e => pathCache(e))
 
   console.log()
-  console.table(paths)
+  console.table(formatted)
 } catch (error) {
   console.log(error.toString())
 }
