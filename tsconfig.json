@@ -4,13 +4,16 @@
     "strict": true,
     "strictNullChecks": false,
     "target": "ES5",
-    "baseUrl": "./",
-    "outDir": "./dist/",
+    "lib": ["es6"],
+    "baseUrl": "lib",
+    "outDir": "dist/",
     "module": "commonjs",
     "esModuleInterop": true,
     "allowJs": true,
     "paths": {
       "@lib/*": ["lib/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": [

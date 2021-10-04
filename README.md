@@ -7,9 +7,17 @@ https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-f
 
 https://github.com/tranvansang/middleware-async
 
+-- ALIASES
+https://www.npmjs.com/package/module-alias
 
 -- APPLY FP-TS TO EXPRESS
 https://hvalls.dev/posts/intro-functional-fpts
+
+-- ROLLUP & TYPESCRIPT
+https://github.com/alex1504/generator-rollup-tslib-starter
+https://github.com/alexjoverm/typescript-library-starter
+https://github.com/rollup/rollup-starter-lib
+https://github.com/ezolenko/rollup-plugin-typescript2
 
 -->
 
