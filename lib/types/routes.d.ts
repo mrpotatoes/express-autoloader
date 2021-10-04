@@ -52,7 +52,6 @@ export type Route<T extends object> = {
   // The version of your thingy. Is prepended to your path.
   version?: VERSIONS,
 
-  // TODO: Rename this to something else.
   // The worker. This is where you put your [business] logic
   run: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
   // handler: Handler // TODO: Why does this break but the above doesn't?
