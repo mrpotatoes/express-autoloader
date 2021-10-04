@@ -7,9 +7,10 @@ import * as log from './logger'
 //   return next
 // }
 
-const defaultErrorHandler = async (req, res): Promise<any> => ({
+const defaultErrorHandler = (deps) => async (req, res): Promise<any> => ({
   hander: 'defaultErrorHandler()',
   generic: 'yes',
+  ...deps,
 })
 
 // The safe handler that wraps everything
@@ -29,7 +30,7 @@ export const asyncHandler = (deps, right, left = defaultErrorHandler) => async (
     res.status(500)
     res.send({
       error: error.toString(),
-      left: (await left(req, res)),
+      left: (await left(deps)(req, res)),
     })
     res.end()
   }

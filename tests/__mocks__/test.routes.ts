@@ -15,13 +15,11 @@ export const errorsout = (req, res) => ({
   prodExclude: false,
   version: VERSIONS.V1,
 
-  // TODO: Handle dependencies correctly.
-  // TODO: Gotta make sure that this is modifiable when handing it over to the handler
+  // TODO: Make deps have a type.
   dependencies: {
     andric: "that's my name, don't wear it out!",
   } as Dependencies,
 
-  // handler: async (req, res) => {
   handler: (deps) => async (req, res) => {
     if (req.params.id == 1) {
       throw new Error('andric has failed ... DUN DUN DUUUUUUN!!!!!!')
@@ -33,7 +31,6 @@ export const errorsout = (req, res) => ({
     }
   },
 
-  // error: async (req, res) => {
   error: (deps) => async (req, res) => ({
     thing: 'this failed and I am so sorry',
     ...deps
