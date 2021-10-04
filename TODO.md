@@ -13,11 +13,8 @@
 | [lib/types/routes.d.ts](lib/types/routes.d.ts#L55) | 55 | Rename this to something else.
 | [lib/utils/files.ts](lib/utils/files.ts#L29) | 29 | Do this with a pipe() from fp-ts
 | [lib/utils/formatters.ts](lib/utils/formatters.ts#L17) | 17 | This is a Route<T> type but how to get it to work?
-| [lib/utils/routes.ts](lib/utils/routes.ts#L11) | 11 | Apply middlewares
-| [lib/utils/routes.ts](lib/utils/routes.ts#L12) | 12 | Apply versions
-| [lib/utils/routes.ts](lib/utils/routes.ts#L13) | 13 | Apply prod/dev
-| [lib/utils/routes.ts](lib/utils/routes.ts#L16) | 16 | BAD, DELETE
-| [lib/utils/routes.ts](lib/utils/routes.ts#L32) | 32 | How add middlewares.
-| [tests/__mocks__/middlewares.ts](tests/__mocks__/middlewares.ts#L1) | 1 | Delete me when ready
-| [tests/__mocks__/middlewares.ts](tests/__mocks__/middlewares.ts#L7) | 7 | Delete me when ready
-| [tests/__mocks__/test.routes.ts](tests/__mocks__/test.routes.ts#L11) | 11 | Clean up the API as we don't need the req, res here at the function definition level.
+| [lib/utils/routes.ts](lib/utils/routes.ts#L14) | 14 | Apply middlewares
+| [lib/utils/routes.ts](lib/utils/routes.ts#L15) | 15 | Apply versions
+| [lib/utils/routes.ts](lib/utils/routes.ts#L16) | 16 | Apply prod/dev
+| [lib/utils/routes.ts](lib/utils/routes.ts#L19) | 19 | BAD, DELETE
+| [lib/utils/routes.ts](lib/utils/routes.ts#L35) | 35 | How add middlewares.
