@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // TODO: Convert to use fp-ts
 // TODO: Fix the tsconfig-paths so this doesn't break again.
+import { Express } from 'express'
+import { Route } from 'types/routes'
 import { allFiles, isValidRequireable } from './utils/files'
 import { routeFn } from './utils/routes'
 
-// TODO: Put into a utils file.
-const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+const toType = (obj: any): string => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 
 /**
  * Return files included + paths.
@@ -13,8 +14,7 @@ const toType = (obj) => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowe
  * @param loadPath 
  * @param recursive 
  */
-export const RoutesLoader = (app, loadPath: string, recursive: boolean) => {
-  // TODO: Make this a dep to be passed around.
+export const RoutesLoader = (app: Express, loadPath: string, recursive: boolean): Route<any>[] => {
   // TODO: This will need to become immutable eventually.
   const paths = []
   const files = allFiles(loadPath, recursive)

@@ -20,7 +20,7 @@ export const testRandomError = (req, res): Route<TestDependencies> => ({
     name: "Johnny Cage",
   },
 
-  handler: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => {
+  run: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => {
     if (parseInt(req.params.id) == 1) {
       throw new Error('/test/? failed')
     }

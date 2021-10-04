@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /**
  * If you import a dependency which does not include its own type definitions,
  * TypeScript will try to find a definition for it by following the `typeRoots`
@@ -18,7 +17,6 @@
  * something()
  * ```
  */
-
 import { Request, Response, NextFunction } from 'express'
 import { METHOD, VERSIONS } from './constants'
 
@@ -37,6 +35,10 @@ export type JSONResponse =
 
 export type Middleware = (req: Request, res: Response, next: NextFunction) => Promise<void>
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type Handler = <T extends object>(deps: T) => (req: Request, res: Response) => Promise<JSONResponse>
+
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type Route<T extends object> = {
   // HTTP Method
   method: METHOD,
@@ -48,19 +50,18 @@ export type Route<T extends object> = {
   prodExclude: boolean,
 
   // The version of your thingy. Is prepended to your path.
-  version: VERSIONS,
+  version?: VERSIONS,
 
   // TODO: Rename this to something else.
   // The worker. This is where you put your [business] logic
-  handler: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
+  run: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
+  // handler: Handler // TODO: Why does this break but the above doesn't?
 
-  // TODO: Perhaps rename this as well.
   // This will be called in a catch, do your cleanup work here. Logging etc.
   error?: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
 
   middlewares?: Middleware[],
 
-  // TODO: Is there a way to force this to be a generic and then force the consumer to define it?
   // Anything that you may need. This is a generic.
   dependencies?: T
 }

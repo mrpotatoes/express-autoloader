@@ -1,7 +1,8 @@
 import fs from 'fs'
 import path from 'path'
+import { FilePredicates } from '../types/misc'
 
-export const fileResolved = (file) => path.resolve(file)
+export const fileResolved = (file: string): string => path.resolve(file)
 
 export const allFiles = (directory: string, rec: boolean): string[] => {
   const filesInDirectory = fs.readdirSync(directory)
@@ -26,13 +27,13 @@ export const allFiles = (directory: string, rec: boolean): string[] => {
 }
 
 // TODO: Do this with a pipe() from fp-ts
-export const fileRequire = (file: string) => ({
+export const fileRequire = (file: string): FilePredicates => ({
   isFile: fs.statSync(fileResolved(file)).isFile(),
   isSource: ['.js', '.ts'].indexOf(path.extname(fileResolved(file)).toLowerCase()) !== -1,
   isLegit: path.basename(fileResolved(file)).substr(0, 1) !== '.',
 })
 
-export const isValidRequireable = (file) => {
+export const isValidRequireable = (file: string): boolean => {
   const deets = fileRequire(file)
 
   return deets.isFile && deets.isSource && deets.isLegit
