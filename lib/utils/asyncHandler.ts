@@ -1,5 +1,4 @@
-import chalk from 'chalk'
-
+import * as log from './logger'
 // export const wrapperError = (next, res, deets) => {
 //   res.setHeader('Content-Type', 'application/json')
 //   res.status(500)
@@ -7,9 +6,6 @@ import chalk from 'chalk'
 // 
 //   return next
 // }
-
-const failLogger = (url, error) => `[${chalk.black.bgRed('ERROR')}]: ${url} → ${error}`
-const passLogger = (url, ret) => `[${chalk.black.bgGreen('PASS')}]: ${url} ${JSON.stringify(ret, null, '  ')}`
 
 const defaultErrorHandler = async (req, res): Promise<any> => ({
   hander: 'defaultErrorHandler()',
@@ -20,14 +16,14 @@ const defaultErrorHandler = async (req, res): Promise<any> => ({
 export const asyncHandler = (deps, right, left = defaultErrorHandler) => async (req, res, next) => {
   try {
     const ret = await right(deps)(req, res, next)
-    console.log(passLogger(req.originalUrl, ret))
+    console.log(log.pass(req.originalUrl, ret))
 
     res.send({
       hellYeah: 'asd',
       ...ret
     })
   } catch (error) {
-    console.log(failLogger(req.originalUrl, error))
+    console.log(log.fail(req.originalUrl, error))
 
     res.setHeader('Content-Type', 'application/json')
     res.status(500)
