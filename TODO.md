@@ -10,7 +10,6 @@
 | [tests/index.ts](tests/index.ts#L1) | 1 | Add tests yo!
 | [lib/types/misc.ts](lib/types/misc.ts#L1) | 1 | Misc for now until I figure out how I want to organize these.
 | [lib/utils/files.ts](lib/utils/files.ts#L29) | 29 | Do this with a pipe() from fp-ts
-| [lib/utils/formatters.ts](lib/utils/formatters.ts#L17) | 17 | This is a Route<T> type but how to get it to work?
 | [lib/utils/routes.ts](lib/utils/routes.ts#L9) | 9 | BAD, DELETE
 | [lib/utils/routes.ts](lib/utils/routes.ts#L18) | 18 | Apply middlewares
 | [lib/utils/routes.ts](lib/utils/routes.ts#L22) | 22 | This could be a Maybe()
