@@ -1,7 +1,6 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| [example/index.ts](example/index.ts#L29) | 29 | Wrap this in an Either() so the code is cleaner and the error handling is simpler.
 | [lib/index.ts](lib/index.ts#L2) | 2 | Convert to use fp-ts
 | [lib/index.ts](lib/index.ts#L3) | 3 | Fix the tsconfig-paths so this doesn't break again.
 | [lib/index.ts](lib/index.ts#L18) | 18 | This will need to become immutable eventually.
