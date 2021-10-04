@@ -1,11 +1,4 @@
 import * as log from './logger'
-// export const wrapperError = (next, res, deets) => {
-//   res.setHeader('Content-Type', 'application/json')
-//   res.status(500)
-//   res.send(JSON.stringify(deets))
-// 
-//   return next
-// }
 
 const defaultErrorHandler = (deps) => async (req, res): Promise<any> => ({
   hander: 'defaultErrorHandler()',

@@ -1,4 +1,3 @@
-/* eslint-disable functional/prefer-readonly-type */
 /* eslint-disable @typescript-eslint/ban-types */
 /**
  * If you import a dependency which does not include its own type definitions,
@@ -29,15 +28,16 @@ declare module 'module-name' {
   export = whatever
 }
 
-type Handler = (req: Request, res: Response) => Promise<void>
-type Middleware = (req: Request, res: Response, next: NextFunction) => Promise<void>
+export type JSONResponse =
+  | string
+  | number
+  | boolean
+  | { [x: string]: JSONResponse }
+  | Array<JSONResponse>
 
-// type Dependencies<T> = {
-//   [key: string]: T
-//   // <T>
-// }
+export type Middleware = (req: Request, res: Response, next: NextFunction) => Promise<void>
 
-export type Route = {
+export type Route<T extends object> = {
   // HTTP Method
   method: METHOD,
 
@@ -52,22 +52,16 @@ export type Route = {
 
   // TODO: Rename this to something else.
   // The worker. This is where you put your [business] logic
-  handler: Handler,
+  handler: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
 
   // TODO: Perhaps rename this as well.
   // This will be called in a catch, do your cleanup work here. Logging etc.
-  error?: Handler,
+  error?: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
 
   middlewares?: Middleware[],
 
   // TODO: Is there a way to force this to be a generic and then force the consumer to define it?
   // Anything that you may need. This is a generic.
-  dependencies?: any
+  dependencies?: T
 }
 
-// export type RouteWithDeps<T> = {
-//   Route,
-// 
-//   // Anything that you may need. This is a generic.
-//   dependencies?: Dependencies<T>
-// }
