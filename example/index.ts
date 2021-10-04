@@ -46,7 +46,9 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
 // TODO: Wrap this in an Either() so the code is cleaner and the error handling is simpler.
 try {
   const paths = RoutesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), false)
-  const formatted = paths.map(e => pathCache(e))
+  const formatted = paths
+    .filter(e => (e.method) ? true : false)
+    .map(e => pathCache(e))
 
   console.log()
   console.table(formatted)
