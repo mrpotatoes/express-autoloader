@@ -1,9 +1,12 @@
 import { Express } from 'express'
+import { METHOD } from '../types/constants'
+import { Route } from '../types/routes'
 import { asyncHandler } from './asyncHandler'
 import { pathCache, trim } from './formatters'
-import { METHOD } from '../types/constants'
-import { PathOutput, Callback } from '../types/misc'
-import { Route } from '../types/routes'
+import { PathOutput, Module } from '../types/misc'
+
+// Get the route (use memo here eventually)
+export const route = (module: Module, key: string) => module[key]()
 
 /**
  * Register route with Express.
@@ -33,9 +36,6 @@ export const registerRoute = <T extends object>(app: Express, route: Route<T>): 
   const handler = asyncHandler(route.dependencies, route.run, route.error)
   app[expressMethod](`/${trim(route.path, '/')}`, handler)
 }
-
-// Get the route (use memo here eventually)
-export const route = (module: Callback, key: string) => module[key]()
 
 // Pulls out relevant route info
 export const routeFn = (app: Express, module): PathOutput[] =>
