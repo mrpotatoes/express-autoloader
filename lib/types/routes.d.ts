@@ -46,8 +46,8 @@ export type Route<T extends object> = {
   // The path
   path: string,
 
-  // Exclude on prod or not
-  prodExclude: boolean,
+  // Exclude on prod or not (defaults to true)
+  prodExclude?: boolean,
 
   // The version of your thingy. Is prepended to your path.
   version?: VERSIONS,
