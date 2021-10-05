@@ -3,7 +3,7 @@ import 'console.table'
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { RoutesLoader } from '../lib'
+import { routesLoader } from '../lib'
 import { pathCache } from '../lib/utils/formatters'
 
 const PORT = 2121
@@ -26,7 +26,7 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
 })
 
 try {
-  const paths = RoutesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), false)
+  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), false)
   const formatted = paths
     .filter(e => (e.method) ? true : false)
     .map(e => pathCache(e))
