@@ -14,7 +14,7 @@ const toType = (obj: any): string => ({}).toString.call(obj).match(/\s([a-zA-Z]+
  * @param loadPath 
  * @param recursive 
  */
-export const RoutesLoader = (app: Express, loadPath: string, recursive: boolean): Route<any>[] => {
+export const routesLoader = (app: Express, loadPath: string, recursive: boolean): Route<any>[] => {
   // TODO: This will need to become immutable eventually.
   const paths = []
   const files = allFiles(loadPath, recursive)
