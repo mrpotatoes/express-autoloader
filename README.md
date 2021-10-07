@@ -19,6 +19,9 @@ https://github.com/alexjoverm/typescript-library-starter
 https://github.com/rollup/rollup-starter-lib
 https://github.com/ezolenko/rollup-plugin-typescript2
 
+-- TESTING
+https://www.npmjs.com/package/@jest-mock/express
+
 -->
 
 ![](./example/screenie.png)

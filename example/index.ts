@@ -1,4 +1,3 @@
-/* eslint-disable- functional/no-throw-statement */
 import 'console.table'
 import path from 'path'
 import express from 'express'
@@ -27,12 +26,13 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
 
 try {
   const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), false)
-  const formatted = paths
-    .filter(e => (e.method) ? true : false)
-    .map(e => pathCache(e))
+
+  // const formatted = paths
+  //   .filter(e => (e.method) ? true : false)
+  //   .map(e => pathCache(e))
 
   console.log()
-  console.table(formatted)
+  console.table(paths)
 } catch (error) {
   console.log(error.toString())
 }

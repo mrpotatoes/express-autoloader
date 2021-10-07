@@ -20,3 +20,8 @@ export type FilePredicates = {
   isSource: boolean
   isLegit: boolean
 }
+
+export type Transform = {
+  method: string
+  path: string
+}

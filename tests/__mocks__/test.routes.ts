@@ -8,9 +8,65 @@ type TestDependencies = {
   name: string,
 }
 
-export const testRandomError = (): Route<TestDependencies> => ({
+export const testRandomError1 = (): Route<TestDependencies> => ({
   method: METHOD.GET,
-  path: 'test/:id',
+  path: 'test1/:id',
+  middlewares: [middleware1, middleware2],
+  prodExclude: false,
+  version: VERSIONS.V1,
+
+  dependencies: {
+    name: "Johnny Cage",
+  },
+
+  run: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => {
+    if (parseInt(req.params.id) == 1) {
+      throw new Error('/test/? failed')
+    }
+
+    return {
+      thing: 'legit',
+      ...deps
+    }
+  },
+
+  error: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => ({
+    thing: 'this failed and I am so sorry',
+    ...deps
+  }),
+})
+
+export const testRandomError2 = (): Route<TestDependencies> => ({
+  method: METHOD.POST,
+  path: 'test2/:id',
+  middlewares: [middleware1, middleware2],
+  prodExclude: false,
+  version: VERSIONS.V1,
+
+  dependencies: {
+    name: "Johnny Cage",
+  },
+
+  run: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => {
+    if (parseInt(req.params.id) == 1) {
+      throw new Error('/test/? failed')
+    }
+
+    return {
+      thing: 'legit',
+      ...deps
+    }
+  },
+
+  error: (deps: TestDependencies) => async (req: Request, res: Response): Promise<JSONResponse> => ({
+    thing: 'this failed and I am so sorry',
+    ...deps
+  }),
+})
+
+export const testRandomError3 = (): Route<TestDependencies> => ({
+  method: METHOD.GET,
+  path: 'test3/:id',
   middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,

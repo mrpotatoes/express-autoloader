@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import * as O from 'fp-ts/Option'
 import { Express } from 'express'
 import { METHOD } from '../types/constants'
 import { Route } from '../types/routes'
@@ -18,7 +19,7 @@ export const route = (module: Module, key: string) => module[key]()
  * TODO: Apply middlewares
  */
 
-export const registerRoute = <T extends object>(app: Express, route: Route<T>): boolean => {
+export const registerRoute = <T extends object>(app: any, route: Route<T>): boolean => {
   // TODO: This could be a Maybe()
   if (route.prodExclude) {
     return false
@@ -37,22 +38,20 @@ export const registerRoute = <T extends object>(app: Express, route: Route<T>): 
   const handler = asyncHandler(route.dependencies, route.run, route.error)
 
   app[expressMethod](`/${trim(route.path, '/')}`, handler)
+  // app.get(`/${trim(route.path, '/')}`, handler)
 
   return true
 }
 
 // Pulls out relevant route info
-export const routeFn = (app: Express, module): PathOutput[] =>
+export const routeFn = (app: Express, module): O.Option<PathOutput>[] =>
   Object.keys(module).map(k => {
     if (!registerRoute(app, route(module, k))) {
-      return {
-        method: '',
-        path: '',
-      }
+      return O.none
     }
 
-    return {
+    return O.some({
       method: route(module, k).method,
       path: route(module, k).path,
-    }
+    })
   })
