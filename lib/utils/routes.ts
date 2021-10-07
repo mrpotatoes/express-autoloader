@@ -45,13 +45,11 @@ export const registerRoute = <T extends object>(app: any, route: Route<T>): bool
 
 // Pulls out relevant route info
 export const routeFn = (app: Express, module): O.Option<PathOutput>[] =>
-  Object.keys(module).map(k => {
-    if (!registerRoute(app, route(module, k))) {
-      return O.none
-    }
-
-    return O.some({
-      method: route(module, k).method,
-      path: route(module, k).path,
-    })
-  })
+  Object.keys(module).map(k => (
+    !registerRoute(app, route(module, k))
+      ? O.none
+      : O.some({
+        method: route(module, k).method,
+        path: route(module, k).path,
+      })
+  ))
