@@ -39,54 +39,53 @@ https://www.npmjs.com/package/@jest-mock/express
 
 ## Use
 ```ts
-/**
- * This will still not work, currently, because if there is an error
- * then there needs to be a way to handle those errors and cleanup. 
- * That will be in version 2 of this thing when I convert this to fp-ts.
- */
-const someHandler = async (req, res) => {
-  const client = new DB()
-  const data = req.body
-  await client.connect()
 
-  const all = await client.query(statement)
-  const data = all.rows
+// Pull this in to your handler code to manage your deps better.
+// interface Dependencies {
+//   req: Request
+//   res: Response
+// }
 
-  for (const one of all) {
-    await client.query(insertStatement(one))
-  }
-
-  await client.end()
-
-  res.send({ all })
+// ----------------------------------------------------------------------
+// In file /routes/api
+interface CustomDependencies extends Dependencies {
+  name: string,
 }
 
-// In file /routes/api
-export const api = (req, res) => ({
-  method: METHOD.GET,
-  path: 'api/something/hey/:id/:something?query',
-  // middlewares: [middleware1, middleware2],
-  prodExclude: false,
-  version: VERSIONS.V1,
-  error: errorFunction, 
-  handler: (req, res) {
-    return res.send(`product detail ${req.params.id}`)
+// Typed deps to know what you're getting.
+const someHandler = (deps: CustomDependencies): Promise<JSONResponse> => {
+    const { req, res, ...cleanedDeps } = deps
+
+    if (parseInt(req.params.id) == 1) {
+      throw new Error('/test/? failed')
+    }
+
+  // Always return a JSON object.
+    return {
+      thing: 'legit',
+      ...cleanedDeps,
+    }
   },
-})
 
-// In file /routes/api2
-export const api2 = (req, res) => ({
+export const api = () => ({
   method: METHOD.GET,
-  path: 'api/something/hey/:id/:something?query',
-  // middlewares: [middleware1, middleware2],
-  prodExclude: true,
+  path: 'test/:id',
+  middlewares: [middleware1, middleware2],
+  prodExclude: false, // Set to true so it doesn't come along to prod.
   version: VERSIONS.V1,
-  error: errorFunction, 
 
-  // A more complex handler, see above.
-  handler: someHandler,
+  dependencies: {
+    name: "Johnny Cage",
+  } as CustomDependencies,
+
+  // Your "dooer" function
+  run: someHandler,
+
+  // If you want to handle your own errors. Leave out for default.
+  error: (deps: CustomDependencies) => ({}),
 })
 
+// ----------------------------------------------------------------------
 // Some other file
 import express from 'express'
 import autoloader from '@mrpotatoes/express-autoloader'
