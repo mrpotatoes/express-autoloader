@@ -4,7 +4,7 @@ import { METHOD } from '../../lib/types/constants'
 
 describe('utils/formatters.ts', () => {
   it('trim()', () => {
-    expect(FORMATTERS.trim('///qwe///', '/')).toEqual('qwe')
+    expect(FORMATTERS.trim('///qwe///')).toEqual('qwe')
   })
 
   it('pathCache()', () => {

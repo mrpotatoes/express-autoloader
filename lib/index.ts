@@ -29,7 +29,6 @@ export const routesLoader = (app: Express, loadPath: string, recursive: boolean)
   // TODO: This will need to become immutable eventually.
   const paths = []
   const files = allFiles(loadPath, recursive)
-  console.log(files)
 
   // TODO: Make this functional.
   for (const entry of files) {

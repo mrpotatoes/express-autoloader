@@ -1,9 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import { FilePredicates } from '../types/misc'
+import * as A from 'fp-ts/Array'
+import { pipe } from 'fp-ts/function'
 
+export const pred = (a): boolean => a === true
 export const fileResolved = (file: string): string => path.resolve(file)
 
+// TODO: How to convert to functional.
 export const allFiles = (directory: string, rec: boolean): string[] => {
   const filesInDirectory = fs.readdirSync(directory)
   let files: string[] = []
@@ -27,14 +30,12 @@ export const allFiles = (directory: string, rec: boolean): string[] => {
 }
 
 // TODO: Do this with a pipe() from fp-ts
-export const fileRequire = (file: string): FilePredicates => ({
-  isFile: fs.statSync(fileResolved(file)).isFile(),
-  isSource: ['.js', '.ts'].indexOf(path.extname(fileResolved(file)).toLowerCase()) !== -1,
-  isLegit: path.basename(fileResolved(file)).substr(0, 1) !== '.',
-})
+export const fileRequire = (resolved) => ([
+  fs.statSync(resolved).isFile(),
+  ['.js', '.ts'].indexOf(path.extname(resolved).toLowerCase()) !== -1,
+  path.basename(resolved).substr(0, 1) !== '.',
+])
 
-export const isValidRequireable = (file: string): boolean => {
-  const deets = fileRequire(file)
-
-  return deets.isFile && deets.isSource && deets.isLegit
-}
+export const isValidRequireable = (file: string) => pipe(
+  fileRequire(fileResolved(file)),
+  A.every(pred))

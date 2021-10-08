@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist\"",
     "example": "clear; tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist/example\"",
+    "testbed": "clear; tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist/example/testbed\"",
     "watch-and-run": "tsc -w & nodemon -q -w dist dist/main",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",

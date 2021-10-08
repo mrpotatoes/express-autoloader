@@ -1,3 +1,5 @@
+import { Request, Response } from 'express'
+
 // TODO: Misc for now until I figure out how I want to organize these.
 
 export type Module = {
@@ -15,13 +17,12 @@ export type PathOutput = {
   path: string
 }
 
-export type FilePredicates = {
-  isFile: boolean
-  isSource: boolean
-  isLegit: boolean
-}
-
 export type Transform = {
   method: string
   path: string
+}
+
+export interface Dependencies {
+  req?: Request
+  res?: Response
 }

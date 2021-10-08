@@ -9,9 +9,13 @@ const defaultErrorHandler = (deps) => async (req: Request, res: Response): Promi
   ...deps,
 })
 
+// TODO: Move the req & res to deps.
 // The safe handler that wraps everything
 export const asyncHandler = <T extends object>(deps: T, right, left = defaultErrorHandler) => async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
+    deps['req'] = req
+    deps['res'] = res
+
     const ret = await right(deps)(req, res, next)
     console.log(log.pass(req.originalUrl, ret))
 
