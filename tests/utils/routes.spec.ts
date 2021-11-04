@@ -4,7 +4,6 @@ import { asyncHandler } from '../../lib/utils/asyncHandler'
 import { Module } from '../../lib/types/misc'
 // import { testRandomError } from '../__mocks__/test.routes'
 
-// TODO: Tests
 describe('index.ts', () => {
   jest.mock('../../lib/utils/asyncHandler', () => ({
     asyncHandler: jest.fn(),
