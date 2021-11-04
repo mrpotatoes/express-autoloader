@@ -19,9 +19,7 @@ export const route = (module: Module, key: string) => module[key]()
  * 
  * TODO: Apply middlewares
  */
-
-export const registerRoute = <T extends object>(app: any, route: Route<T>): boolean => {
-  // TODO: This could be a Maybe()
+export const registerRoute = <T extends object>(app: Express, route: Route<T>): boolean => {
   if (route.prodExclude) {
     return false
   }

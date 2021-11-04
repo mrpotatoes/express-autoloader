@@ -1,4 +1,3 @@
-import { Request, Response } from 'express'
 import * as FORMATTERS from '../../lib/utils/formatters'
 import { METHOD } from '../../lib/types/constants'
 
@@ -12,7 +11,7 @@ describe('utils/formatters.ts', () => {
       method: METHOD.GET,
       path: 'test',
       prodExclude: false,
-      run: () => async (req: Request, res: Response) => {
+      run: async () => {
         return {
           nothing: 'none'
         }

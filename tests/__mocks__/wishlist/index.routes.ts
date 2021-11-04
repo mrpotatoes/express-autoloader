@@ -1,19 +1,17 @@
 import { METHOD, VERSIONS } from '../../../lib/types/constants'
 import { Route, JSONResponse } from '../../../lib/types/routes'
-import { Request, Response } from 'express'
-import { middleware1, middleware2 } from '../middlewares'
+import { Dependencies } from '../../../lib/types/misc'
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const thingy = (): Route<object> => ({
   method: METHOD.GET,
   path: 'api/wishlist/:list/',
-  // middlewares: [middleware1, middleware2],
   prodExclude: false,
   version: VERSIONS.V1,
 
-  run: (deps: any) => async (req: Request, res: Response): Promise<JSONResponse> => {
+  run: async (deps: Dependencies): Promise<JSONResponse> => {
     return {
-      origUrl: req.originalUrl
+      origUrl: deps.req.originalUrl
     }
   },
 })

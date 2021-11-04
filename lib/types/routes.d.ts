@@ -53,11 +53,10 @@ export type Route<T extends object> = {
   version?: VERSIONS,
 
   // The worker. This is where you put your [business] logic
-  run: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
-  // handler: Handler // TODO: Why does this break but the above doesn't?
+  run: (deps: T) => Promise<JSONResponse>,
 
   // This will be called in a catch, do your cleanup work here. Logging etc.
-  error?: (deps: T) => (req: Request, res: Response) => Promise<JSONResponse>,
+  error?: (deps: T) => Promise<JSONResponse>,
 
   middlewares?: Middleware[],
 

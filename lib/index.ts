@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// TODO: Convert to use fp-ts
 // TODO: Fix the tsconfig-paths so this doesn't break again.
 import * as O from 'fp-ts/Option'
 import * as A from 'fp-ts/Array'
@@ -19,30 +17,26 @@ const transform = (a: any): Transform => ({
   path: curl(METHOD[a.method], a.path),
 })
 
+export const isModule = (module) => toType(module) === 'object'
+
+export const routeConfigs = (app) => (previousValue, currentValue) => ([
+  ...previousValue,
+  routeFn(app, currentValue),
+])
+
 /**
  * Return files included + paths.
  * @param app 
  * @param loadPath 
  * @param recursive 
  */
-export const routesLoader = (app: Express, loadPath: string, recursive: boolean): Transform[] => {
-  // TODO: This will need to become immutable eventually.
-  const paths = []
-  const files = allFiles(loadPath, recursive)
-
-  // TODO: Make this functional.
-  for (const entry of files) {
-    if (isValidRequireable(entry)) {
-      const module = require(entry)
-
-      if (toType(module) === 'object') {
-        paths.push(...routeFn(app, module))
-      }
-    }
-  }
-
-  return pipe(
-    paths,
+export const routesLoader = (app: Express, loadPath: string, recursive: boolean): Transform[] =>
+  pipe(
+    allFiles(loadPath, recursive)
+      .filter(isValidRequireable)
+      .map(file => require(file))
+      .filter(isModule)
+      .reduce(routeConfigs(app), [])
+      .flat(),
     A.filterMap(O.map(transform))
   )
-}

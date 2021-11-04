@@ -1,26 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Request, Response, NextFunction } from 'express'
+import { JSONResponse } from '../../lib/types/routes'
 import * as log from './logger'
 
-const defaultErrorHandler = (deps) => async (req: Request, res: Response): Promise<any> => ({
+const defaultErrorHandler = async (deps: any): Promise<JSONResponse> => ({
   hander: 'defaultErrorHandler()',
   generic: 'yes',
-  ...deps,
 })
 
-// TODO: Move the req & res to deps.
 // The safe handler that wraps everything
 export const asyncHandler = <T extends object>(deps: T, right, left = defaultErrorHandler) => async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    deps['req'] = req
-    deps['res'] = res
+  const dependencies = { ...deps, req, res }
 
-    const ret = await right(deps)(req, res, next)
+  try {
+    const ret = await right(dependencies)
     console.log(log.pass(req.originalUrl, ret))
 
     res.send({
-      hellYeah: 'asd',
       ...ret
     })
   } catch (error) {
@@ -30,7 +26,7 @@ export const asyncHandler = <T extends object>(deps: T, right, left = defaultErr
     res.status(500)
     res.send({
       error: error.toString(),
-      left: (await left(deps)(req, res)),
+      left: (await left(dependencies)),
     })
     res.end()
   }
