@@ -1,10 +1,8 @@
+import * as O from 'fp-ts/Option'
 import { Request, Response } from 'express'
-
-// TODO: Misc for now until I figure out how I want to organize these.
 
 export type Module = {
   [name: string]: () => any
-  // [name: string]: <T extends object>() => Route<T>
 }
 
 export type PathItem = {
@@ -26,3 +24,7 @@ export interface Dependencies {
   req?: Request
   res?: Response
 }
+
+export type RouteOpt = O.Option<PathOutput>[]
+
+export type Requireable = [boolean, boolean, boolean]

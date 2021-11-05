@@ -7,20 +7,21 @@ import { allFiles, isValidRequireable } from './utils/files'
 import { routeFn } from './utils/routes'
 import { curl } from './utils/formatters'
 import { METHOD } from './types/constants'
-import { Transform } from './types/misc'
+import { RouteSimpleTransform } from './types/Routes'
+import { Transform, RouteOpt, Module } from './types/misc'
 
-const toType = (obj: any): string => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+const toType = (obj: Module): string => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 
-const transform = (a: any): Transform => ({
+const transform = (a: RouteSimpleTransform): Transform => ({
   method: METHOD[a.method],
   path: curl(METHOD[a.method], a.path),
 })
 
-export const isModule = (module) => toType(module) === 'object'
+export const isModule = (module: Module): boolean => toType(module) === 'object'
 
-export const routeConfigs = (app) => (previousValue, currentValue) => ([
-  ...previousValue,
-  routeFn(app, currentValue),
+export const routeConfigs = (app: Express) => (prev: RouteOpt, curr: RouteOpt) => ([
+  ...prev,
+  routeFn(app, curr),
 ])
 
 /**

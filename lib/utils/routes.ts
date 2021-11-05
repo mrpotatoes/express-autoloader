@@ -11,7 +11,6 @@ import { PathOutput, Module, PathItem } from '../types/misc'
 // TODO: BAD, DELETE
 const paths: PathItem[] = []
 
-// Get the route (use memo here eventually)
 export const route = (module: Module, key: string) => module[key]()
 
 /**

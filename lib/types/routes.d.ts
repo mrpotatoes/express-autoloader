@@ -38,6 +38,14 @@ export type Middleware = (req: Request, res: Response, next: NextFunction) => Pr
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type Handler = <T extends object>(deps: T) => (req: Request, res: Response) => Promise<JSONResponse>
 
+export type RouteSimpleTransform = {
+  // HTTP Method
+  method: METHOD,
+
+  // The path
+  path: string,
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type Route<T extends object> = {
   // HTTP Method
