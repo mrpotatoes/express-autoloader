@@ -38,6 +38,52 @@ https://www.npmjs.com/package/@jest-mock/express
 1. Dependencies shouldn't be hard to handle so I'm trying to make that easier.
 
 ## Use
+Check out `./example` to see more examples
+### Simplest setup
+Your `app.js`
+```ts
+try {
+  const paths = routesLoader(app, path.join(__dirname, '/some/dir'), true)
+
+  // Do this if you wanna see the output of all the paths.
+  console.log()
+  console.table(paths)
+} catch (error) {
+  console.log(error.toString())
+}
+```
+
+Example `test.route.ts`. This is the minimal configuration needded to get it to be picked up.
+
+Notes: 
+* Your file **must** include the `route.ts` at the end. That's how the app finds the routes.
+* You can have multiple routes exported in a single file.
+    * see: [`test.routes.ts`](./tests/mocks/test.routes.ts)
+* The `error` handler has the same signature as `run`
+* You needn't but it is beneficial to define your dependencies in `Route<T>`
+    * see: [`test.routes.ts`](./tests/mocks/test.routes.ts#L7) and [`test.routes.ts`](./tests/mocks/test.routes.ts#L44)
+
+```ts
+export const cart = (): Route<object> => ({
+  method: METHOD.GET,
+  path: 'some/uri/:id',
+
+  run: async (deps: Dependencies): Promise<JSONResponse> => {
+    const { req } = deps // By default Express' req & res are added to deps.
+
+    if (parseInt(req.params.id) == 1) {
+      throw new Error('You can use the default error handler or make your own')
+    }
+
+    // Always return your JSON, do not need to use res.send
+    return {
+      origUrl: req.originalUrl
+    }
+  },
+})
+```
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
 ```ts
 
 // Pull this in to your handler code to manage your deps better.
