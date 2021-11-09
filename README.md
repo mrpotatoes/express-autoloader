@@ -1,5 +1,7 @@
 <!--
 
+Used this to create my package: https://bitjson.github.io/typescript-starter/
+
 "express-autoload-router": "^1.0.5",
 "expressjs.routes.autoload": "^0.2.0"
 
