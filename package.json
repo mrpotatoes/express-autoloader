@@ -2,7 +2,6 @@
   "name": "@mrpotatoes/express-autoloader",
   "version": "1.0.0",
   "description": "A simple express autoloader, ya doink",
-  "main": "dist/main/index.js",
   "main": "dist/lib/index.js",
   "typings": "dist/lib/index.d.ts",
   "repository": "https://github.com/mrpotatoes/express-autoloader",
