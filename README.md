@@ -1,28 +1,17 @@
 <!--
 
-Used this to create my package: https://bitjson.github.io/typescript-starter/
+TYPESCRIPT REPO GENERATOR
+- https://bitjson.github.io/typescript-starter/
 
-"express-autoload-router": "^1.0.5",
-"expressjs.routes.autoload": "^0.2.0"
+TYPINGS
+- https://medium.com/jspoint/typescript-type-declaration-files-4b29077c43
+- https://v4.chriskrycho.com/2018/how-to-bundle-typescript-type-definitions.html
 
-https://developpaper.com/typescript-es6-promise-recursively-traverses-files-in-folders/
-
-https://github.com/tranvansang/middleware-async
-
--- ALIASES
-https://www.npmjs.com/package/module-alias
+ALIASES
+- https://www.npmjs.com/package/module-alias
 
 -- APPLY FP-TS TO EXPRESS
-https://hvalls.dev/posts/intro-functional-fpts
-
--- ROLLUP & TYPESCRIPT
-https://github.com/alex1504/generator-rollup-tslib-starter
-https://github.com/alexjoverm/typescript-library-starter
-https://github.com/rollup/rollup-starter-lib
-https://github.com/ezolenko/rollup-plugin-typescript2
-
--- TESTING
-https://www.npmjs.com/package/@jest-mock/express
+- https://hvalls.dev/posts/intro-functional-fpts
 
 -->
 

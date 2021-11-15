@@ -2,12 +2,13 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "target": "esnext",
-    "outDir": "dist/lib",
+    "outDir": "dist/es6",
     "module": "esnext"
   },
   "exclude": [
     "node_modules/**",
     "example",
-    "tests"
+    "**/*.spec.ts",
+    "__mocks__/**"
   ]
 }

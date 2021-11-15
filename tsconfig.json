@@ -6,9 +6,8 @@
     "target": "es2017",
     "lib": ["es2017"],
     "baseUrl": "lib",
-    "outDir": "dist/",
+    "outDir": "dist/commonjs",
     "module": "commonjs",
-    "rootDir": "./lib",
     "moduleResolution": "node",
     "allowJs": true,
 
@@ -17,10 +16,10 @@
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
     "resolveJsonModule": true /* Include modules imported with .json extension. */,
 
-    // "typeRoots": [
-    //   "node_modules/@types",
-    //   "lib/types"
-    // ],
+    "typeRoots": [
+      "node_modules/@types",
+      "lib/types"
+    ],
 
     "paths": {
       "@lib/*": ["lib/*"],
@@ -29,6 +28,12 @@
     }
   },
   "include": [
-    "lib/",
+    "lib/**/*"
   ],
+  "exclude": [
+    "node_modules/**",
+    "example",
+    "**/*.spec.ts",
+    "__mocks__/**"
+  ]
 }
