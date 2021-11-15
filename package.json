@@ -1,6 +1,6 @@
 {
   "name": "@mrpotatoes/express-autoloader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple express autoloader, ya doink",
   "main": "dist/commonjs/index.js",
   "typings": "dist/commonjs/index.d.ts",
@@ -84,8 +84,7 @@
     "typescript": "^4.4.3"
   },
   "files": [
-    "dist/main",
-    "dist/module",
+    "dist/*",
     "!**/*.spec.*",
     "!**/*.json",
     "CHANGELOG.md",
