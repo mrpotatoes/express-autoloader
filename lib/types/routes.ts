@@ -20,12 +20,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { METHOD, VERSIONS } from './constants'
 
-declare module 'module-name' {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const whatever: any
-  export = whatever
-}
-
 export type JSONResponse =
   | string
   | number

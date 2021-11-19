@@ -16,26 +16,15 @@
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
     "resolveJsonModule": true /* Include modules imported with .json extension. */,
 
-    // "typeRoots": [
-    //   "node_modules/@types",
-    //   "lib/types"
-    // ],
-
     "paths": {
-      // "@mrpotatoes/express-autoloader/types": ["types/*"],
-      // "@mrpotatoes/express-autoloader/utils": ["utils/*"],
-      // "@lib/*": ["lib/*"],
-      // "@interfaces/*": ["interfaces/*"],
-      // "@utils/*": ["utils/*"],
+      "@lib/*": ["lib/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@utils/*": ["utils/*"],
     }
   },
   "include": [
-    "lib/**/*"
+    "../lib/**/*",
+    "./",
+    "../tests/**/*",
   ],
-  "exclude": [
-    "node_modules/**",
-    "example",
-    "**/*.spec.ts",
-    "__mocks__/**"
-  ]
 }

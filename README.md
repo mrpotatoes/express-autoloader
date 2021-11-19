@@ -1,5 +1,12 @@
 <!--
 
+NO DIST IN INPORT
+- https://stackoverflow.com/questions/49858168/how-to-publish-typescript-modules-on-npm-without-dist-in-import
+- https://github.com/lerna/lerna/issues/1282
+- https://medium.com/@augustas.skaburskas/publishing-a-typescript-npm-package-4b284ecd1b52
+- https://coderedirect.com/questions/357863/how-to-publish-typescript-modules-on-npm-without-dist-in-import
+- https://codeburst.io/developing-and-publishing-a-typescript-npm-package-d9fc643d4229
+
 TYPESCRIPT REPO GENERATOR
 - https://bitjson.github.io/typescript-starter/
 

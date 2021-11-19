@@ -16,9 +16,7 @@ export const asyncHandler = <T extends object>(deps: T, right, left = defaultErr
     const ret = await right(dependencies)
     console.log(log.pass(req.originalUrl, ret))
 
-    res.send({
-      ...ret
-    })
+    res.send(ret)
   } catch (error) {
     console.log(log.fail(req.originalUrl, error))
 

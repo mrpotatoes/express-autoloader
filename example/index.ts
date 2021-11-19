@@ -8,6 +8,11 @@ const PORT = 2121
 const HOST = '0.0.0.0'
 const app = express()
 
+process.env.PGUSER = 'USER'
+process.env.PGDATABASE = 'TEST_DB'
+process.env.PGHOST = 'localhost'
+process.env.PGPORT = '0000'
+
 const jsonErrorHandler = async (err, req, res, next) => {
   res.status(500).send({ error: err });
 }
