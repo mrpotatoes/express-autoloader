@@ -3,6 +3,7 @@ import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { routesLoader } from '../lib'
+import { Config } from '../lib/types/misc'
 
 const PORT = 2121
 const HOST = '0.0.0.0'
@@ -28,8 +29,14 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
   res.send('manually adding still works, yay')
 })
 
+const options: Config = {
+  error: () => {
+    console.log('running this error handler instead')
+  }
+}
+
 try {
-  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), true)
+  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), true, options)
 
   console.log()
   console.table(paths)

@@ -23,24 +23,25 @@ export const testRandomError1 = (): Route<TestDependencies> => ({
       throw new Error('/test/? failed')
     }
 
-    const client = await deps.client()
-    const records = await client.query("SELECT * FROM A_TABLE") // Create to test
+    // const client = await deps.client()
+    // const records = await client.query("SELECT * FROM A_TABLE") // Create to test
+    const records = await { rows: [1, 2, 3, 4, 5] }
 
     return [
       { rows: records.rows },
     ]
   },
 
-  error: async (deps: TestDependencies): Promise<JSONResponse> => {
-    const { req, res, ...cleanedDeps } = deps
-    const client = await deps.client()
-    await client.query(PG_ENUM.ROLLBACK);
+  // error: async (deps: TestDependencies): Promise<JSONResponse> => {
+  //   const { req, res, ...cleanedDeps } = deps
+  //   // const client = await deps.client()
+  //   // await client.query(PG_ENUM.ROLLBACK);
 
-    return {
-      hey: 'yes, there was an error',
-      origUrl: req.originalUrl
-    }
-  },
+  //   return {
+  //     hey: 'yes, there was an error',
+  //     origUrl: req.originalUrl
+  //   }
+  // },
 })
 
 export const testRandomError2 = (): Route<TestDependencies> => ({

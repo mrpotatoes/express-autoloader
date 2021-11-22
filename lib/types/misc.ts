@@ -23,8 +23,15 @@ export type Transform = {
 export interface Dependencies {
   req?: Request
   res?: Response
+  // client?: () => Promise<PG.PoolClient>,
+  // error: (deps: T) => Promise<JSONResponse>,
 }
 
 export type RouteOpt = O.Option<PathOutput>[]
 
 export type Requireable = [boolean, boolean, boolean]
+
+export type Config = {
+  error?: any,
+  logger?: any,
+}

@@ -18,7 +18,7 @@ export const route = (module: Module, key: string) => module[key]()
  * 
  * TODO: Apply middlewares
  */
-export const registerRoute = <T extends object>(app: Express, route: Route<T>): boolean => {
+export const registerRoute = <T extends object>(app: Express, route: Route<T>, config): boolean => {
   if (route.prodExclude) {
     return false
   }
@@ -32,8 +32,9 @@ export const registerRoute = <T extends object>(app: Express, route: Route<T>): 
     paths.push(pathCache(route))
   }
 
+  const errorHandler = route.error || config.error
   const expressMethod = METHOD[route.method].toLocaleLowerCase()
-  const handler = asyncHandler(route.dependencies, route.run, route.error)
+  const handler = asyncHandler(route.dependencies, route.run, errorHandler)
 
   app[expressMethod](`/${trim(route.path)}`, handler)
 
@@ -41,9 +42,9 @@ export const registerRoute = <T extends object>(app: Express, route: Route<T>): 
 }
 
 // Pulls out relevant route info
-export const routeFn = (app: Express, module): O.Option<PathOutput>[] =>
+export const routeFn = (app: Express, module, config): O.Option<PathOutput>[] =>
   R.keys(module).map(k => (
-    !registerRoute(app, route(module, k))
+    !registerRoute(app, route(module, k), config)
       ? O.none
       : O.some({
         method: route(module, k).method,

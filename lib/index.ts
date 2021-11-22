@@ -8,7 +8,7 @@ import { routeFn } from './utils/routes'
 import { curl } from './utils/formatters'
 import { METHOD } from './types/constants'
 import { RouteSimpleTransform } from './types/Routes'
-import { Transform, RouteOpt, Module } from './types/misc'
+import { Transform, RouteOpt, Module, Config } from './types/misc'
 
 const toType = (obj: Module): string => ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 
@@ -19,21 +19,21 @@ const transform = (a: RouteSimpleTransform): Transform => ({
 
 export const isModule = (module: Module): boolean => toType(module) === 'object'
 
-export const routeConfigs = (app: Express) => (prev: RouteOpt, curr: RouteOpt) => ([
+export const routeConfigs = (app: Express, config) => (prev: RouteOpt, curr: RouteOpt) => ([
   ...prev,
-  routeFn(app, curr),
+  routeFn(app, curr, config),
 ])
 
 /**
  * Return files included + paths.
  */
-export const routesLoader = (app: Express, loadPath: string, recursive: boolean): Transform[] =>
+export const routesLoader = (app: Express, loadPath: string, recursive: boolean, config: Config = {}): Transform[] =>
   pipe(
     allFiles(loadPath, recursive)
       .filter(isValidRequireable)
       .map(file => require(file))
       .filter(isModule)
-      .reduce(routeConfigs(app), [])
+      .reduce(routeConfigs(app, config), [])
       .flat(),
     A.filterMap(O.map(transform))
   )

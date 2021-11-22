@@ -82,6 +82,9 @@ export const cart = (): Route<object> => ({
 })
 ```
 
+## A note on `Dependencies`
+When determining your type for dependencies make sure that you extend the main one. `req`, `res` and `logger` are all required and all routes will expect them. After that feel free to add your own in.
+
 ---
 ## API
 Eventually
