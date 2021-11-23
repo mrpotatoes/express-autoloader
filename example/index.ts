@@ -1,9 +1,11 @@
 import 'console.table'
+import * as PG from 'pg';
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { routesLoader } from '../lib'
-import { Config } from '../lib/types/misc'
+import { Dependencies } from '../lib/types/misc'
+// import { poolBuilder } from '../tests/__mocks__/middlewares'
 
 const PORT = 2121
 const HOST = '0.0.0.0'
@@ -29,14 +31,35 @@ app.get('/i-cant-still-do-this-of-course', async (req, res) => {
   res.send('manually adding still works, yay')
 })
 
-const options: Config = {
-  error: () => {
+interface ExampleDependencies extends Dependencies {
+  client?: () => Promise<PG.PoolClient>
+}
+
+// Global dependencies (for all routes).
+const deps: Dependencies = {
+  // logger: {
+  //   pass: (url, deets) => {
+  //     console.log(url, deets)
+  //   },
+  //   fail: (url, error) => {
+  //     // Toggle these to see different error output.
+  //     // console.log(url, error)
+  //     console.log(`[ERROR]: ${url} → ${error}`)
+  //   }
+  // },
+  error: async (deps: ExampleDependencies) => {
+    console.log('override', Object.keys(deps))
+    console.log()
+
+    // const client = await poolBuilder()
+    // await client.query('ROLLBACK');
     console.log('running this error handler instead')
-  }
+    return {}
+  },
 }
 
 try {
-  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), true, options)
+  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), deps)
 
   console.log()
   console.table(paths)

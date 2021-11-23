@@ -8,7 +8,7 @@ export const PG_ENUM = {
   ROLLBACK: 'ROLLBACK',
 };
 
-export interface TestDependencies extends Dependencies {
+export interface ExampleDependencies extends Dependencies {
   name: string,
   client?: () => Promise<PG.PoolClient>,
 }
