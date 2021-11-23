@@ -12,7 +12,7 @@
     "build:main": "tsc -p tsconfig.json",
     "build-:defs": "tsc --declaration --outDir dist/@types --emitDeclarationOnly",
     "dev": "tsc-watch -p ./tsconfig.json --onSuccess \"node ./dist\"",
-    "example": "clear; tsc-watch -p ./example/tsconfig.json --onSuccess \"node ./example/dist/example\"",
+    "example": "clear; tsc-watch -p ./tests/live-example/tsconfig.json --onSuccess \"node ./tests/live-example/dist/tests/live-example\"",
     "watch-and-run": "tsc -w & nodemon -q -w dist dist/main",
     "check-cli": "run-s test diff-integration-tests check-integration-tests",
     "check-integration-tests": "run-s check-integration-test:*",

@@ -3,8 +3,8 @@ import * as PG from 'pg';
 import path from 'path'
 import express from 'express'
 import bodyParser from 'body-parser'
-import { routesLoader } from '../lib'
-import { Dependencies } from '../lib/types/misc'
+import { routesLoader } from '../../lib'
+import { Dependencies } from '../../lib/types/misc'
 // import { poolBuilder } from '../tests/__mocks__/middlewares'
 
 const PORT = 2121
@@ -59,10 +59,13 @@ const deps: Dependencies = {
 }
 
 try {
-  const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), deps)
+  console.log(
+    path.join(__dirname, '../', '__mocks__')
+  )
+  // const paths = routesLoader(app, path.join(__dirname, '../', 'tests/__mocks__'), deps)
 
-  console.log()
-  console.table(paths)
+  // console.log()
+  // console.table(paths)
 } catch (error) {
   console.log(error.toString())
 }
