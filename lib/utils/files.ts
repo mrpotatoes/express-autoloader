@@ -6,6 +6,7 @@ import { Requireable } from '../types/misc'
 
 export const pred = (a): boolean => a === true
 export const fileResolved = (file: string): string => path.resolve(file)
+export const isRoute = (file: string): boolean => new RegExp('routes?.(ts|js)').test(file)
 
 // TODO: How to convert to functional.
 export const allFiles = (directory: string, rec: boolean): string[] => {
@@ -17,13 +18,8 @@ export const allFiles = (directory: string, rec: boolean): string[] => {
 
     if (rec && fs.statSync(absolute).isDirectory()) {
       files = files.concat(allFiles(absolute, rec))
-    } else {
-      const regex = new RegExp('routes?.(ts|js)')
-      const isRoute = regex.test(file)
-
-      if (isRoute) {
-        files.push(absolute)
-      }
+    } else if (isRoute(file)) {
+      files.push(absolute)
     }
   }
 
